@@ -33,5 +33,9 @@
   },
   "devDependencies": {
     "mocha": "*"
+  },
+  "engines": {
+    "node": ">=16",
+    "npm": ">=6"
   }
 }
