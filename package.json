@@ -17,24 +17,22 @@
   "scripts": {
     "help": "node ./bin/tequila.mjs -h",
     "db-reset": "node ./bin/tequila.mjs db-init && node ./bin/tequila.mjs app-data-init",
-    "start": "node ./bin/tequila.mjs web-server-start --http1",
+    "start": "node ./bin/tequila.mjs web-server-start --http1 --skipPid",
     "stop": "node ./bin/tequila.mjs web-server-stop"
   },
   "dependencies": {
     "@teqfw/core": "github:teqfw/core",
     "@teqfw/db": "github:teqfw/db",
     "@teqfw/di": "github:teqfw/di",
-    "@teqfw/i18n": "github:teqfw/i18n",
     "@teqfw/test": "github:teqfw/test",
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
     "@teqfw/vue": "github:teqfw/vue",
-    "@teqfw/web": "github:teqfw/web",
-    "@teqfw/web-api": "github:teqfw/web-api"
+    "@teqfw/web": "github:teqfw/web"
   },
   "devDependencies": {
     "mocha": "*"
   },
   "engines": {
-    "node": "16.x.x"
+    "node": ">=16"
   }
 }
