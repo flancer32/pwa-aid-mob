@@ -1,0 +1,17 @@
+{
+  "@teqfw/core": {
+    "commands": [],
+    "plugin": {}
+  },
+  "@teqfw/di": {
+    "autoload": {
+      "ns": "Aid_Mob",
+      "path": "./src"
+    },
+    "replace": {}
+  },
+  "@teqfw/web": {
+    "statics": {
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@flancer32/pwa-aid-mob",
+  "version": "0.1.0",
+  "description": "AI Demo PWA.",
+  "homepage": "https://github.com/flancer32/pwa-aid-mob/",
+  "bugs": {
+    "url": "https://github.com/flancer32/pwa-aid-mob/issues",
+    "email": "alex@flancer32.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Alex Gusev",
+    "email": "alex@flancer64.com",
+    "url": "https://github.com/flancer64"
+  },
+  "repository": "github:flancer32/pwa-aid-mob",
+  "scripts": {
+    "help": "node ./bin/tequila.mjs -h",
+    "db-reset": "node ./bin/tequila.mjs db-init && node ./bin/tequila.mjs app-data-init",
+    "start": "node ./bin/tequila.mjs web-server-start --http1",
+    "stop": "node ./bin/tequila.mjs web-server-stop"
+  },
+  "dependencies": {
+    "@teqfw/core": "github:teqfw/core",
+    "@teqfw/db": "github:teqfw/db",
+    "@teqfw/di": "github:teqfw/di",
+    "@teqfw/i18n": "github:teqfw/i18n",
+    "@teqfw/test": "github:teqfw/test",
+    "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
+    "@teqfw/vue": "github:teqfw/vue",
+    "@teqfw/web": "github:teqfw/web",
+    "@teqfw/web-api": "github:teqfw/web-api"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
