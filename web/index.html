@@ -5,8 +5,59 @@
     <meta name="description" content="AI Demo">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AI Demo</title>
+    <style>
+        /* These are boot time styles and should be as small as possible */
+        BODY {
+            margin: 0;
+        }
+
+        .launchpad {
+            align-items: center;
+            display: grid;
+            height: 100vh;
+            justify-items: center;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        self.addEventListener('load', async () => {
+            // see `node_modules/@teqfw/web/web/js/install.mjs`
+            const {Install} = await import('./web/@teqfw/web/js/wa-install.mjs');
+            // create & init bootstrap object
+            /** @type {Install} */
+            const installer = new Install();
+            installer.setCssMount('BODY > DIV');
+            installer.setNsApp('Aid_Mob_Front_App');
+            // set printout to UI DIV & to console
+            // local printout DIV
+            const elLaunchpad = document.querySelector('.launchpad');
+            installer.setFnPrintout((msg) => {
+                elLaunchpad.innerHTML = msg;
+                console.log(`[shell]: ${msg}`);
+            });
+            // run the application's bootstrap
+            await installer.run();
+        });
+    </script>
+
 </head>
 <body>
-<div>AI Demo.</div>
+<div>
+    <app-root>
+        <div class="launchpad">This is AI Demo</div>
+    </app-root>
+</div>
+
+<!-- These scripts are not ready for loading with TeqFW DI. Use old style loading.  -->
+<script type="application/javascript" src="./src/vue/vue.global.prod.js"></script>
+<script type="application/javascript" src="./src/vue-router/vue-router.global.prod.js"></script>
+<script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
+<script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
+
+<!-- These styles are loaded after landing page is displayed -->
+<link rel="stylesheet" href="./web/@teqfw/ui-quasar/styles.css">
+<link rel="stylesheet" href="./src/quasar/quasar.prod.css">
+<link rel="stylesheet" href="./styles.css">
 </body>
 </html>
