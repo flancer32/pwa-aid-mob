@@ -20,6 +20,8 @@
         }
     </style>
 
+    <script src="https://accounts.google.com/gsi/client" onload="console.log('TODO: add onload function')"></script>
+
     <script>
         self.addEventListener('load', async () => {
             // see `node_modules/@teqfw/web/web/js/install.mjs`
@@ -50,6 +52,8 @@
 </div>
 
 <!-- These scripts are not ready for loading with TeqFW DI. Use old style loading.  -->
+<!--<script type="application/javascript" src="https://apis.google.com/js/api.js"></script>-->
+<!--<script type="application/javascript" src="https://accounts.google.com/gsi/client" async></script>-->
 <script type="application/javascript" src="./src/vue/vue.global.prod.js"></script>
 <script type="application/javascript" src="./src/vue-router/vue-router.global.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
