@@ -75,9 +75,12 @@ export default class Aid_Mob_Front_App {
                 });
                 // setup application routes (load es6-module on demand with DI-container)
                 router.addRoute({
+                    path: DEF.ROUTE_CRED,
+                    component: () => container.get('Aid_Mob_Front_Ui_Route_Cred$'),
+                });
+                router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Home$'),
-                    meta: {anonymous: false},
                 });
 
                 //

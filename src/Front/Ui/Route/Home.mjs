@@ -18,7 +18,7 @@ export default function (spec) {
 
     // VARS
     const template = `
-<layout-center xmlns="http://www.w3.org/1999/html">
+<layout-center>
 
     <q-card>
 
