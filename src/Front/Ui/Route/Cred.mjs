@@ -26,6 +26,9 @@ export default function (spec) {
             <q-btn label="Auth" v-on:click="onAuth" />
         </q-card-actions> 
 
+        <q-card-section>
+            {{info}}
+        </q-card-section>
     </q-card>    
 
 </layout-center>
@@ -43,7 +46,9 @@ export default function (spec) {
         template,
         components: {},
         data() {
-            return {};
+            return {
+                info: null,
+            };
         },
         methods: {
             async onAuth() {
@@ -52,23 +57,39 @@ export default function (spec) {
                 // FUNCS
 
                 // MAIN
+                this.info = '';
                 try {
-                    await navigator.credentials.preventSilentAccess();
+                    if (navigator.credentials) {
+                        this.info += '\nCredentials: TRUE.';
+                    } else {
+                        this.info += '\nCredentials: FALSE.';
+                    }
+                    // await navigator.credentials.preventSilentAccess();
                     /** @type {PasswordCredential} */
                     const found = await navigator.credentials.get({password: true});
                     if (found) {
+                        this.info += '\nPassword credentials are found.';
                         const id = found.id;
                         const password = found.password;
                         const name = found.name;
                         const iconURL = found.iconURL;
                     } else {
+                        this.info += '\nPassword credentials are NOT found.';
                         const credential = new PasswordCredential({
-                            id: 'email',
-                            password: 'priv&pub.keys',
-                            name: 'Alex Gusev',
-                            iconURL: 'https://some.address.com/icon',
+                            id: 'alex@wiredgeese.com',
+                            password: 'SomePasswordHere12#@4',
+                            name: 'Alex Wiredgeese',
+                            iconURL: 'https://www.gravatar.com/avatar/19e5d3174548cc948e1a8b73e5ee7ecd',
                         });
                         await navigator.credentials.store(credential);
+                        // const credential2 = new PasswordCredential({
+                        //     id: 'alex@flancer32.com',
+                        //     password: 'password',
+                        //     name: 'Alex F. Lancer',
+                        //     iconURL: 'https://www.gravatar.com/avatar/f977617c7f258948227c51cb1769fecd',
+                        // });
+                        // await navigator.credentials.store(credential2);
+
                         // const credential2 = new PasswordCredential({
                         //     id: 'teqUser',
                         //     password: 'other',
@@ -78,7 +99,7 @@ export default function (spec) {
                         // await navigator.credentials.store(credential2);
                     }
                 } catch (e) {
-                    debugger
+                    this.info += `Error: ${e}`;
                 }
             },
         },
