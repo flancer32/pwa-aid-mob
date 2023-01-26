@@ -18,7 +18,7 @@ export default function (spec) {
 
     // VARS
     const template = `
-<layout-center>
+<layout-main>
 
     <q-card>
 
@@ -43,7 +43,7 @@ export default function (spec) {
         </q-card-actions>  
     </q-card>    
 {{response}}    
-</layout-center>
+</layout-main>
 `;
     // MAIN
     /**

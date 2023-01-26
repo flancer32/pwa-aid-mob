@@ -33,8 +33,10 @@ export default class Aid_Mob_Front_App {
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
         const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
-        /** @type {Aid_Mob_Front_Ui_Layout_Center} */
+        /** @type {Aid_Mob_Front_Ui_Layout_Center.vueCompTmpl} */
         const layoutCenter = spec['Aid_Mob_Front_Ui_Layout_Center$'];
+        /** @type {Aid_Mob_Front_Ui_Layout_Main.vueCompTmpl} */
+        const layoutMain = spec['Aid_Mob_Front_Ui_Layout_Main$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
@@ -82,6 +84,10 @@ export default class Aid_Mob_Front_App {
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Home$'),
                 });
+                router.addRoute({
+                    path: DEF.ROUTE_WATSON,
+                    component: () => container.get('Aid_Mob_Front_Ui_Route_Watson$'),
+                });
 
                 //
                 app.use(router);
@@ -109,7 +115,7 @@ export default class Aid_Mob_Front_App {
             });
             // ... and add global available components
             _root.component('layoutCenter', layoutCenter);
-            // _root.component('layoutDesk', layoutDesk);
+            _root.component('layoutMain', layoutMain);
             // other initialization
             await modCfg.init({}); // this app has no separate 'doors' (entry points)
             _print(`Application config is loaded.`);

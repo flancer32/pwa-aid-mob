@@ -18,7 +18,7 @@ export default function (spec) {
 
     // VARS
     const template = `
-<layout-center>
+<layout-main>
 
     <q-card>
 

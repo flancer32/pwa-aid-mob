@@ -5,6 +5,7 @@ export default class Aid_Mob_Front_Defaults {
 
     ROUTE_CRED = '/cred';
     ROUTE_HOME = '/';
+    ROUTE_WATSON = '/watson';
 
     /** @type {Aid_Mob_Shared_Defaults} */
     SHARED;
