@@ -81,8 +81,16 @@ export default class Aid_Mob_Front_App {
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Cred$'),
                 });
                 router.addRoute({
+                    path: DEF.ROUTE_DEEPGRAM,
+                    component: () => container.get('Aid_Mob_Front_Ui_Route_Deepgram$'),
+                });
+                router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Home$'),
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_RECORD,
+                    component: () => container.get('Aid_Mob_Front_Ui_Route_Record$'),
                 });
                 router.addRoute({
                     path: DEF.ROUTE_WATSON,

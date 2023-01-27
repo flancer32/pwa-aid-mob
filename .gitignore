@@ -14,5 +14,6 @@
 /tmp/
 /var/*.pid
 /var/store/**
+/web/download/
 /web/img/exrc
 /web/sound

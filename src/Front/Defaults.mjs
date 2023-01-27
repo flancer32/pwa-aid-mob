@@ -3,8 +3,12 @@
  */
 export default class Aid_Mob_Front_Defaults {
 
+    COLOR_Q_PRIMARY = 'primary';
+
     ROUTE_CRED = '/cred';
+    ROUTE_DEEPGRAM= '/deepgram';
     ROUTE_HOME = '/';
+    ROUTE_RECORD= '/record';
     ROUTE_WATSON = '/watson';
 
     /** @type {Aid_Mob_Shared_Defaults} */

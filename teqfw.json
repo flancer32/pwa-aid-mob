@@ -12,6 +12,7 @@
   },
   "@teqfw/web": {
     "statics": {
+      "@deepgram/sdk": "@deepgram/sdk/dist/browser"
     }
   }
 }

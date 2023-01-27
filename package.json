@@ -21,6 +21,7 @@
     "stop": "node ./bin/tequila.mjs web-server-stop"
   },
   "dependencies": {
+    "@deepgram/sdk": "^1.15.0",
     "@teqfw/core": "github:teqfw/core",
     "@teqfw/db": "github:teqfw/db",
     "@teqfw/di": "github:teqfw/di",

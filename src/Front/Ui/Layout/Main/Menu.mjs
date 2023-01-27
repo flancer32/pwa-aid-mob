@@ -24,11 +24,14 @@ export default function (spec) {
             <q-item active-class="active" to="${DEF.ROUTE_HOME}">
                 <q-item-section>Home</q-item-section>
             </q-item>
+            <q-item active-class="active" to="${DEF.ROUTE_RECORD}">
+                <q-item-section>Record</q-item-section>
+            </q-item>
             <q-item active-class="active" to="${DEF.ROUTE_CRED}">
                 <q-item-section>Credentials</q-item-section>
             </q-item>
-            <q-item active-class="active" to="${DEF.ROUTE_WATSON}">
-                <q-item-section>Watson</q-item-section>
+            <q-item active-class="active" to="${DEF.ROUTE_DEEPGRAM}">
+                <q-item-section>Deepgram</q-item-section>
             </q-item>
         </q-list>
     </div>
