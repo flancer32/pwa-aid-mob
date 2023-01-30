@@ -28,7 +28,8 @@
     "@teqfw/test": "github:teqfw/test",
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
     "@teqfw/vue": "github:teqfw/vue",
-    "@teqfw/web": "github:teqfw/web"
+    "@teqfw/web": "github:teqfw/web",
+    "socket.io-client": "^4.5.4"
   },
   "devDependencies": {
     "mocha": "*"

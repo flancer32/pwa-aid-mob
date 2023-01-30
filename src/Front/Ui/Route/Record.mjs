@@ -107,9 +107,7 @@ export default function (spec) {
             },
         },
         created() {
-            if (!navigator.mediaDevices) {
-                this.ifAudio = false;
-            }
+            this.ifAudio = !!navigator.mediaDevices;
         },
     };
 }

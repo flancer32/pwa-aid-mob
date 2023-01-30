@@ -12,7 +12,8 @@
   },
   "@teqfw/web": {
     "statics": {
-      "@deepgram/sdk": "@deepgram/sdk/dist/browser"
+      "@deepgram/sdk": "@deepgram/sdk/dist/browser",
+      "socket.io-client": "socket.io-client/dist"
     }
   }
 }
