@@ -18,7 +18,7 @@ class Dto {
 }
 
 /**
- * @implements TeqFw_Core_Shared_Api_Factory_IDto
+ * @implements TeqFw_Core_Shared_Api_Factory_Dto
  */
 export default class Aid_Mob_Front_Dto_Config_Deepgram {
 

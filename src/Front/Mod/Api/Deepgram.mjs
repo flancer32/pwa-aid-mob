@@ -6,8 +6,8 @@ export default class Aid_Mob_Front_Mod_Api_Deepgram {
         // DEPS
         /** @type {Aid_Mob_Front_Defaults} */
         const DEF = spec['Aid_Mob_Front_Defaults$'];
-        /** @type {TeqFw_Core_Shared_Api_ILogger} */
-        const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
+        /** @type {TeqFw_Core_Shared_Api_Logger} */
+        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {TeqFw_Web_Front_Mod_Store_Singleton} */
         const modStore = spec['TeqFw_Web_Front_Mod_Store_Singleton$'];
         /** @type {Aid_Mob_Front_Dto_Config_Deepgram} */
