@@ -28,7 +28,7 @@ export default function (spec) {
         </q-card-section>      
         
         <q-card-actions align="center" v-if="ifAudio">
-            <q-btn label="Dialogflow" v-on:click="$router.push('${DEF.ROUTE_RECORD}')" />
+            <q-btn label="Dialogflow" v-on:click="$router.push('${DEF.ROUTE_DIALOGFLOW}')" />
         </q-card-actions>  
     </q-card>    
 
