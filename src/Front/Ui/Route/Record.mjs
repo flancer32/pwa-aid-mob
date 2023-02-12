@@ -32,7 +32,7 @@ export default function (spec) {
             <q-card-section style="text-align: center;">
                 <div>Record an audio.</div>
                 <audio controls :src="audioUrl"/>
-                <div><a :href="audioUrl">Download</a></div>
+                <div><a :href="audioUrl">Save link as...</a></div>
             </q-card-section>
 
             <q-card-actions align="center">
@@ -85,7 +85,7 @@ export default function (spec) {
                     });
 
 
-                    recorder.addEventListener('stop', (e) => {
+                    recorder.addEventListener('stop', () => {
                         // convert chunks to one Blob and get URL for this Blob
                         const blob = new Blob(chunks, {type: "audio/ogg; codecs=opus"});
                         this.audioUrl = URL.createObjectURL(blob);

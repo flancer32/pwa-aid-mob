@@ -1,10 +1,10 @@
 /**
- * Dialog to configure Deepgram demo.
+ * Dialog to configure Dialogflow demo.
  *
- * @namespace Aid_Mob_Front_Ui_Route_Deepgram_A_Config
+ * @namespace Aid_Mob_Front_Ui_Route_Dialogflow_A_Config
  */
 // MODULE'S VARS
-const NS = 'Aid_Mob_Front_Ui_Route_Deepgram_A_Config';
+const NS = 'Aid_Mob_Front_Ui_Route_Dialogflow_A_Config';
 const EVT_OK = 'onOk';
 const REF_SELF = 'self';
 
@@ -13,8 +13,7 @@ const REF_SELF = 'self';
 // noinspection JSUnusedLocalSymbols
 /**
  * @interface
- * @mixin
- * @memberOf Aid_Mob_Front_Ui_Route_Deepgram_A_Config
+ * @memberOf Aid_Mob_Front_Ui_Route_Dialogflow_A_Config
  */
 class IUi {
     /**
@@ -25,9 +24,8 @@ class IUi {
     /**
      * Set API key.
      * @param {string} key
-     * @param {string} lang
      */
-    show(key, lang) { }
+    show(key) { }
 }
 
 
@@ -35,7 +33,7 @@ class IUi {
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.vueCompTmpl}
+ * @returns {Aid_Mob_Front_Ui_Route_Dialogflow_A_Config.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Aid_Mob_Front_Defaults} */
@@ -45,19 +43,14 @@ export default function (spec) {
     const template = `
 <q-dialog ref="${REF_SELF}">
     <q-card>
-        <q-card-section class="column q-col-gutter-md">
-            <q-input v-model="fldKey"  
-                autofocus
-                label="API Key" 
-                outlined 
-            />
+        <q-card-section class="column q-col-gutter-md" style="min-width: 200px;">
             <q-select v-model="fldLang"
                 :options="optsLang"
                 emit-value
                 label="Language"
                 map-options
                 outlined
-            />            
+            />
         </q-card-section>
 
         <q-card-actions align="center">
@@ -73,7 +66,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Aid_Mob_Front_Ui_Route_Deepgram_A_Config
+     * @memberOf Aid_Mob_Front_Ui_Route_Dialogflow_A_Config
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -81,7 +74,6 @@ export default function (spec) {
         template,
         data() {
             return {
-                fldKey: null,
                 fldLang: DEF.DATA_LANG,
             };
         },
@@ -89,14 +81,11 @@ export default function (spec) {
             optsLang() {
                 return [
                     {label: 'en', value: 'en-US'},
-                    {label: 'es', value: 'es'},
-                    {label: 'ru', value: 'ru'},
+                    {label: 'es', value: 'es-ES'},
+                    {label: 'ru', value: 'ru-RU'},
                 ];
             },
         },
-        /**
-         * @mixes Aid_Mob_Front_Ui_Route_Deepgram_A_Config.IUi
-         */
         methods: {
             hide() {
                 const ui = this.$refs[REF_SELF];
@@ -104,11 +93,10 @@ export default function (spec) {
             },
             onOk() {
                 this.hide();
-                this.$emit(EVT_OK, this.fldKey, this.fldLang);
+                this.$emit(EVT_OK, this.fldLang);
             },
-            show(key, lang) {
+            show(key) {
                 this.fldKey = key;
-                this.fldLang = lang ?? DEF.DATA_LANG;
                 const ui = this.$refs[REF_SELF];
                 ui.show();
             },

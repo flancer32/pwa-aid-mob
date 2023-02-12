@@ -19,16 +19,13 @@ export default function (spec) {
     // VARS
     const template = `
 <q-scroll-area class="fit">
-    <div class="q-pa-sm">
+    <div class="q-pa-sm" style="border: 1px solid lightgrey">
         <q-list separator>
-            <q-item active-class="active" to="${DEF.ROUTE_HOME}">
-                <q-item-section>Home</q-item-section>
-            </q-item>
             <q-item active-class="active" to="${DEF.ROUTE_RECORD}">
-                <q-item-section>Record</q-item-section>
+                <q-item-section>Audio Record</q-item-section>
             </q-item>
-            <q-item active-class="active" to="${DEF.ROUTE_CRED}">
-                <q-item-section>Credentials</q-item-section>
+            <q-item active-class="active" to="${DEF.ROUTE_DIALOGFLOW}">
+                <q-item-section>Dialogflow</q-item-section>
             </q-item>
             <q-item active-class="active" to="${DEF.ROUTE_DEEPGRAM}">
                 <q-item-section>Deepgram</q-item-section>

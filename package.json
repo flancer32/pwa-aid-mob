@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@deepgram/sdk": "^1.15.0",
+    "@google-cloud/dialogflow": "^5.5.0",
+    "@google-cloud/storage": "^6.9.2",
     "@teqfw/core": "github:teqfw/core",
     "@teqfw/db": "github:teqfw/db",
     "@teqfw/di": "github:teqfw/di",
@@ -29,7 +31,9 @@
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
     "@teqfw/vue": "github:teqfw/vue",
     "@teqfw/web": "github:teqfw/web",
-    "socket.io-client": "^4.5.4"
+    "cross-fetch": "^3.1.5",
+    "pb-util": "^1.0.3",
+    "ws": "*"
   },
   "devDependencies": {
     "mocha": "*"

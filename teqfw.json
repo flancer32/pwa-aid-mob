@@ -11,9 +11,9 @@
     "replace": {}
   },
   "@teqfw/web": {
-    "statics": {
-      "@deepgram/sdk": "@deepgram/sdk/dist/browser",
-      "socket.io-client": "socket.io-client/dist"
-    }
+    "sockets": {
+      "Aid_Mob_Back_App_Server_Handler_Socket": {}
+    },
+    "statics": {}
   }
 }

@@ -1,8 +1,18 @@
 
 #layout-main {
-    max-width: 600px;
+    /*max-width: 600px;*/
 }
 
 #layout-right {
     color: black;
+}
+
+.dialogBot {
+    text-align: right;
+    color: blue;
+}
+
+.dialogUser {
+    text-align: left;
+    color: green;
 }
