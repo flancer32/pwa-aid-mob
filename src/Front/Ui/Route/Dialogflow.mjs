@@ -62,6 +62,10 @@ export default function (spec) {
                 <q-btn label="Record Audio" v-on:click="onRec" v-if="!ifRecordOn" color="primary"/>
                 <q-btn label="Send Audio" v-on:click="onSend" v-if="ifRecordOn" color="primary"/>
             </q-card-actions>
+            
+            <q-inner-loading :showing="ifLoading">
+                <q-spinner-gears size="50px" color="${DEF.COLOR_Q_PRIMARY}"/>
+            </q-inner-loading>             
         </template>
 
         <q-card-section style="text-align: center;">
@@ -88,6 +92,7 @@ export default function (spec) {
             return {
                 ifActive: false,
                 ifAudio: true, // 'true' if Media is supported in the browser
+                ifLoading: false,
                 ifRecordOn: false,
                 text: null,
             };
@@ -118,7 +123,6 @@ export default function (spec) {
                         /** @type {WebSocket} */
                         const socket = uiInst[ATTRS][ATTR_SOCKET];
                         if (socket?.readyState && (socket?.readyState === socket?.OPEN)) socket.send(e.data);
-
                     });
 
                     recorder.addEventListener('stop', () => {
@@ -141,6 +145,7 @@ export default function (spec) {
                     // socket?.send(binary);
                     socket?.send(JSON.stringify({state: 'stop'}));
                     console.log(`Audio is sent to the back.`);
+                    this.ifLoading = true;
                 } else console.error(`Backend web socket is not ready. Cannot send audio to backend.`);
             },
             async onStart() {
@@ -187,6 +192,7 @@ export default function (spec) {
                                     elBot.className = 'dialogBot';
                                     elDisplay.appendChild(elBot);
                                 }
+                                uiInst.ifLoading = false;
                             });
                         } catch (e) {
                             console.log(`Error in web socket.`.e);
