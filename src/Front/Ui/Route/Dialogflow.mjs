@@ -56,6 +56,7 @@ export default function (spec) {
                 <div>Press 'Record' button to start recording. Press 'Send' button to stop recording and to send audio data
                  to Dialogflow.
                 </div>
+                <div>Say "I want to book a room" for beginning.</div>
             </q-card-section>
 
             <q-card-actions align="center">
