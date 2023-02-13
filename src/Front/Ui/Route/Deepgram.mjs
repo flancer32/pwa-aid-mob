@@ -196,7 +196,10 @@ export default function (spec) {
         async created() {
             this.ifAudio = !!navigator.mediaDevices;
             await modDg.loadConfig();
-            this.ifConfigured = (modDg.getApiKey().length > 0);
+            this.ifConfigured = (modDg.getApiKey()?.length > 0);
+        },
+        mounted() {
+            document.title = 'Deepgram';
         },
     };
 }

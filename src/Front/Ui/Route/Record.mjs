@@ -109,5 +109,8 @@ export default function (spec) {
         created() {
             this.ifAudio = !!navigator.mediaDevices;
         },
+        mounted() {
+            document.title = 'Audio Record';
+        },
     };
 }

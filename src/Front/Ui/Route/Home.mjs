@@ -51,11 +51,12 @@ export default function (spec) {
                 ifAudio: true,
             };
         },
-        methods: {
-
-        },
+        methods: {},
         created() {
             this.ifAudio = !!navigator.mediaDevices;
+        },
+        mounted() {
+            document.title = 'AI Demo';
         },
     };
 }

@@ -258,5 +258,8 @@ export default function (spec) {
             this[ATTRS][ATTR_RECORDER] = null;
             this[ATTRS][ATTR_SOCKET] = null;
         },
+        mounted() {
+            document.title = 'Dialogflow';
+        },
     };
 }
