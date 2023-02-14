@@ -110,7 +110,9 @@ export default function (spec) {
                             const hostname = location.hostname;
                             const space = DEF.SHARED.SPACE_WS;
                             const route = DEF.SHARED.WS_DG_LIVE;
-                            const url = `wss://${hostname}/${space}/${route}`;
+                            debugger
+                            const port = (location.port === '443') ? '' : `:${location.port}`;
+                            const url = `wss://${hostname}${port}/${space}/${route}`;
                             const sock = new WebSocket(url);
                             sock.addEventListener('open', () => {
                                 console.log(`WebSocket is opened: ${url}`);

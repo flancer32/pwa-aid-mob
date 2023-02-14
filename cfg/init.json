@@ -1,0 +1,5 @@
+{
+  "@teqfw/core": {
+    "pidFile": "var/teqfw.pid"
+  }
+}

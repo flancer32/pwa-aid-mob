@@ -92,7 +92,7 @@ export default class Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live {
             // ws.send(JSON.stringify('AID is connected'));
 
             ws.on('close', () => {
-                deepgramLive.finish();
+                deepgramLive?.finish();
             });
         }
 

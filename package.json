@@ -15,15 +15,15 @@
   },
   "repository": "github:flancer32/pwa-aid-mob",
   "scripts": {
-    "help": "node ./bin/tequila.mjs -h",
     "db-reset": "node ./bin/tequila.mjs db-init && node ./bin/tequila.mjs app-data-init",
-    "start": "node ./bin/tequila.mjs web-server-start --http1 --skipPid",
+    "deploy": "gcloud app deploy",
+    "help": "node ./bin/tequila.mjs -h",
+    "start": "node ./bin/tequila.mjs web-server-start --http1 --useWs",
     "stop": "node ./bin/tequila.mjs web-server-stop"
   },
   "dependencies": {
     "@deepgram/sdk": "^1.15.0",
     "@google-cloud/dialogflow": "^5.5.0",
-    "@google-cloud/storage": "^6.9.2",
     "@teqfw/core": "github:teqfw/core",
     "@teqfw/db": "github:teqfw/db",
     "@teqfw/di": "github:teqfw/di",
@@ -31,7 +31,6 @@
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
     "@teqfw/vue": "github:teqfw/vue",
     "@teqfw/web": "github:teqfw/web",
-    "cross-fetch": "^3.1.5",
     "pb-util": "^1.0.3",
     "ws": "*"
   },
@@ -39,6 +38,6 @@
     "mocha": "*"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   }
 }
