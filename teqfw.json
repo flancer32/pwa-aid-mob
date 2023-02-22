@@ -14,6 +14,9 @@
     "sockets": {
       "Aid_Mob_Back_App_Server_Handler_Socket": {}
     },
-    "statics": {}
+    "statics": {
+      "tesseract.js": "tesseract.js/dist",
+      "tesseract.js-core": "tesseract.js-core"
+    }
   }
 }

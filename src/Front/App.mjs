@@ -21,8 +21,11 @@ export default class Aid_Mob_Front_App {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {function} */
-        const createApp = spec['TeqFw_Vue_Front_Lib_Vue.createApp'];
-        const {createRouter, createWebHashHistory} = spec['TeqFw_Vue_Front_Lib_Router'];
+        const createApp = spec['TeqFw_Vue_Front_Ext_Vue.createApp'];
+        /** @type {function} */
+        const createRouter = spec['TeqFw_Vue_Front_Ext_Router.createRouter'];
+        /** @type {function} */
+        const createWebHashHistory = spec['TeqFw_Vue_Front_Ext_Router.createWebHashHistory'];
         /** @type {Aid_Mob_Front_Defaults} */
         const DEF = spec['Aid_Mob_Front_Defaults$'];
         /** @type {TeqFw_Di_Shared_Container} */
@@ -91,6 +94,10 @@ export default class Aid_Mob_Front_App {
                 router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Home$'),
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_OCR,
+                    component: () => container.get('Aid_Mob_Front_Ui_Route_Ocr$'),
                 });
                 router.addRoute({
                     path: DEF.ROUTE_RECORD,

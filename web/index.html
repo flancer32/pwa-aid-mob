@@ -44,24 +44,27 @@
         });
     </script>
 
-    <!-- Matomo -->
     <script>
-        const SITE_ID = (location.hostname === 'aid.dev.wiredgeese.com') ? '2' : '1';
-        let _paq = window._paq = window._paq || [];
-        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function () {
-            let u = "//matomo.service.wiredgeese.com/";
-            _paq.push(['setTrackerUrl', u + 'matomo.php']);
-            _paq.push(['setSiteId', SITE_ID]);
-            let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-            g.async = true;
-            g.src = u + 'matomo.js';
-            s.parentNode.insertBefore(g, s);
-        })();
+        // Use various analytic trackers for live instances only
+        if (location.hostname === 'aid.demo.wiredgeese.com') {
+            <!-- Matomo -->
+            let _paq = window._paq = window._paq || [];
+            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+                let u = "//matomo.service.wiredgeese.com/";
+                _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                _paq.push(['setSiteId', 1]);
+                let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.async = true;
+                g.src = u + 'matomo.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+            <!-- End Matomo Code -->
+        }
     </script>
-    <!-- End Matomo Code -->
+
 </head>
 <body>
 <div>
@@ -77,6 +80,8 @@
 <script type="application/javascript" src="./src/vue-router/vue-router.global.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
+<script type="application/javascript" src="./src/tesseract.js/tesseract.min.js"></script>
+<script type="application/javascript" src="./src/tesseract.js/worker.min.js"></script>
 <!--<script type="application/javascript" src="./src/@deepgram/sdk/index.js"></script>-->
 <!--<script type="application/javascript" src="./src/socket.io-client/socket.io.min.js"></script>-->
 

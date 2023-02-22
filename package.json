@@ -32,6 +32,7 @@
     "@teqfw/vue": "github:teqfw/vue",
     "@teqfw/web": "github:teqfw/web",
     "pb-util": "^1.0.3",
+    "tesseract.js": "^4.0.2",
     "ws": "*"
   },
   "devDependencies": {

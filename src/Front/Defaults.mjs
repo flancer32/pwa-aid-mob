@@ -12,6 +12,7 @@ export default class Aid_Mob_Front_Defaults {
     ROUTE_DEEPGRAM = '/deepgram';
     ROUTE_DIALOGFLOW = '/dialogflow';
     ROUTE_HOME = '/';
+    ROUTE_OCR = '/ocr';
     ROUTE_RECORD = '/record';
     ROUTE_WATSON = '/watson';
 
