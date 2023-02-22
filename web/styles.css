@@ -16,3 +16,7 @@
     text-align: left;
     color: green;
 }
+
+.pointer {
+    cursor: pointer;
+}

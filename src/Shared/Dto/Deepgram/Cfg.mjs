@@ -1,12 +1,12 @@
 /**
- * DTO for startup data for Datagram transcriptions.
+ * DTO for configuration options sent from front-end to back-end to start Datagram transcriptions.
  */
 // MODULE'S VARS
-const NS = 'Aid_Mob_Shared_Dto_Start_Deepgram';
+const NS = 'Aid_Mob_Shared_Dto_Deepgram_Cfg';
 
 // MODULE'S CLASSES
 /**
- * @memberOf Aid_Mob_Shared_Dto_Start_Deepgram
+ * @memberOf Aid_Mob_Shared_Dto_Deepgram_Cfg
  */
 class Dto {
     static namespace = NS;
@@ -19,14 +19,14 @@ class Dto {
 /**
  * @implements TeqFw_Core_Shared_Api_Factory_Dto
  */
-export default class Aid_Mob_Shared_Dto_Start_Deepgram {
+export default class Aid_Mob_Shared_Dto_Deepgram_Cfg {
     constructor(spec) {
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
         const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
 
         /**
-         * @param {Aid_Mob_Shared_Dto_Start_Deepgram.Dto} [data]
-         * @return {Aid_Mob_Shared_Dto_Start_Deepgram.Dto}
+         * @param {Aid_Mob_Shared_Dto_Deepgram_Cfg.Dto} [data]
+         * @return {Aid_Mob_Shared_Dto_Deepgram_Cfg.Dto}
          */
         this.createDto = function (data) {
             // create new DTO

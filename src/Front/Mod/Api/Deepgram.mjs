@@ -26,7 +26,7 @@ export default class Aid_Mob_Front_Mod_Api_Deepgram {
         }
 
         this.getLang = function () {
-            return _cache?.lang;
+            return _cache?.lang ?? 'en-US';
         }
 
         this.set = async function (key, lang) {

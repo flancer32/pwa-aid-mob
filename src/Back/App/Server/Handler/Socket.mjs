@@ -8,12 +8,17 @@ export default class Aid_Mob_Back_App_Server_Handler_Socket {
         // DEPS
         /** @type {Aid_Mob_Back_Defaults} */
         const DEF = spec['Aid_Mob_Back_Defaults$'];
+        /** @type {TeqFw_Core_Shared_Api_Logger} */
+        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File} */
         const aDgFile = spec['Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File$'];
         /** @type {Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live} */
         const aDgLive = spec['Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live$'];
         /** @type {Aid_Mob_Back_App_Server_Handler_Socket_A_Gdf_Live} */
         const aGdfLive = spec['Aid_Mob_Back_App_Server_Handler_Socket_A_Gdf_Live$'];
+
+        // VARS
+        logger.setNamespace(this.constructor.name);
 
         // INSTANCE METHODS
 
@@ -25,7 +30,7 @@ export default class Aid_Mob_Back_App_Server_Handler_Socket {
 
         this.prepareSocket = function (ws) {
             // ws.binaryType = 'fragments';
-            console.log(`Client web socket is connected.`);
+            logger.info(`Client web socket is connected.`);
             return ws;
         }
 
@@ -43,7 +48,8 @@ export default class Aid_Mob_Back_App_Server_Handler_Socket {
                     ws.close(1000, 'Unknown request');
                 }
             } catch (e) {
-                console.error('Cannot process websocket request:', e);
+                logger.error(`Cannot process websocket request. `
+                    + `Error: ${e?.message || e}`);
             }
         }
 

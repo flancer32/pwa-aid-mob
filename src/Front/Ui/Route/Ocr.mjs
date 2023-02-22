@@ -57,10 +57,10 @@ export default function (spec) {
                     logger: m => console.log(m),
                 });
 
-                await worker.loadLanguage('eng');
-                await worker.initialize('eng');
+                await worker.loadLanguage('rus');
+                await worker.initialize('rus');
                 await worker.setParameters({
-                    tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz., ',
+                    // tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz., ',
                     tessedit_ocr_engine_mode: 2, // TESSERACT_LSTM_COMBINED
                 });
 
