@@ -7,6 +7,7 @@
 const NS = 'Aid_Mob_Front_Ui_Route_Deepgram';
 const REF_CONFIG = 'config';
 const REF_RESP = 'resp';
+const TIME_SLICE_MS = 250;
 
 // MODULE'S FUNCTIONS
 /**
@@ -23,12 +24,16 @@ export default function (spec) {
     const modDg = spec['Aid_Mob_Front_Mod_Api_Deepgram$'];
     /** @type {Aid_Mob_Shared_Dto_Deepgram_Cfg} */
     const dtoStart = spec['Aid_Mob_Shared_Dto_Deepgram_Cfg$'];
+    /** @type {Aid_Mob_Shared_Dto_Deepgram_Command} */
+    const dtoCmd = spec['Aid_Mob_Shared_Dto_Deepgram_Command$'];
     /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.vueCompTmpl} */
     const uiConfig = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_Config$'];
     /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp.vueCompTmpl} */
     const uiResp = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp$'];
     /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Line.vueCompTmpl} */
     const uiLine = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_Line$'];
+    /** @type {typeof Aid_Mob_Shared_Dto_Deepgram_Command.Name} */
+    const COMMAND = spec['Aid_Mob_Shared_Dto_Deepgram_Command.Name$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -51,8 +56,8 @@ export default function (spec) {
         </q-card-section>
     
         <q-card-actions align="center">
-            <q-btn label="Rec" v-on:click="onRec" :disable="ifDisableRec" color="primary" icon="mic"/>
-            <q-btn label="Stop" v-on:click="onStop" :disable="!ifRecordOn" color="primary" icon="mic_off"/>
+            <q-btn label="Rec" v-on:click="onRec" :disable="ifDisableRec" :color="colorRec" icon="mic"/>
+            <q-btn label="Stop" v-on:click="onStop" :disable="!ifRecordOn" :color="colorStop" icon="mic_off"/>
             <q-btn label="Config" v-on:click="onCfg" color="primary" icon="settings"/>
         </q-card-actions>
         
@@ -83,14 +88,22 @@ export default function (spec) {
                 ifRecordOn: false,
                 items: [],
                 lang: null,
-                mediaRecorder: MediaRecorder,
+                /** @type {MediaRecorder} */
+                mediaRecorder: null,
             };
         },
         computed: {
+            colorRec() {
+                // TODO: use it or remove it
+                return (this.ifRecordOn) ? 'primary' : 'primary';
+            },
+            colorStop() {
+                // TODO: use it or remove it
+                return (this.ifRecordOn) ? 'primary' : 'primary';
+            },
             ifDisableRec() {
                 return !this.ifConfigured || this.ifRecordOn;
             },
-            ifDisableStop() {},
         },
         methods: {
             async doConfigOk(key, lang) {
@@ -117,37 +130,82 @@ export default function (spec) {
                 const uiInst = this;
 
                 // FUNCS
+
+                /**
+                 * Re-send media data (BLOB) to back-end.
+                 * @param {BlobEvent} e
+                 */
+                function onMediaData(e) {
+                    if (socket.readyState === socket.OPEN) socket.send(e.data);
+                }
+
+                function onMediaStop() {
+                    logger.info(`Media is stopped. Send 'STOP' command to back-end.`);
+                    // send close command to back-end.
+                    const dto = dtoCmd.createDto();
+                    dto.name = COMMAND.STOP;
+                    socket.send(JSON.stringify(dto));
+                }
+
                 /**
                  * Open socket to backend.
                  * @returns {Promise<WebSocket>}
                  */
                 async function openSocket() {
                     return new Promise((resolve, reject) => {
-                        try {
+                        // VARS
+                        const url = composeUrl();
+                        /** @type {WebSocket} */
+                        let sock;
+
+                        // FUNCS
+
+                        function composeUrl() {
                             const hostname = location.hostname;
                             const space = DEF.SHARED.SPACE_WS;
                             const route = DEF.SHARED.WS_DG_LIVE;
-                            const port = (location.port === '443') ? '' : `:${location.port}`;
-                            const url = `wss://${hostname}${port}/${space}/${route}`;
-                            const sock = new WebSocket(url);
-                            sock.addEventListener('open', () => {
-                                logger.info(`WebSocket is opened: ${url}`);
-                                resolve(sock);
-                            });
-                            sock.addEventListener('error', (event) => {
-                                logger.error(`WebSocket error:  ${event}`);
-                            });
-                            sock.addEventListener('close', () => {
-                                logger.info('WebSocket is closed.');
-                                uiInst.onStop();
-                            });
-                            sock.addEventListener('message', (event) => {
-                                const m = JSON.parse(event.data)
-                                logger.info('WebSocket has a message:', m);
-                                if (m) uiInst.items.unshift(m);
-                            });
+                            const port = ((location.port === '443') || (location.port === ''))
+                                ? '' : `:${location.port}`;
+                            return `wss://${hostname}${port}/${space}/${route}`;
+                        }
+
+                        function onClose() {
+                            logger.info('Back-end websocket is closed.');
+                            uiInst.onStop();
+                        }
+
+                        function onError(evt) {
+                            logger.error(`Back-end websocket error:  ${evt}`);
+                        }
+
+                        /**
+                         * @param {MessageEvent} evt
+                         */
+                        function onMessage(evt) {
+                            const m = JSON.parse(evt.data)
+                            logger.info(`DG message from back-end (size: ${evt?.data?.length}).`, m);
+                            if (m) uiInst.items.unshift(m);
+                        }
+
+                        function onOpen() {
+                            logger.info(`Back-end webSocket is opened: ${url}`);
+                            const dto = dtoStart.createDto();
+                            dto.apiKey = modDg.getApiKey();
+                            dto.lang = modDg.getLang() ?? DEF.DATA_LANG;
+                            sock.send(JSON.stringify(dto));
+                            logger.info(`Deepgram configuration options are sent to back. Lang: ${dto.lang}.`);
+                            resolve(sock);
+                        }
+
+                        // MAIN
+                        try {
+                            sock = new WebSocket(url);
+                            sock.addEventListener('open', onOpen);
+                            sock.addEventListener('error', onError);
+                            sock.addEventListener('close', onClose);
+                            sock.addEventListener('message', onMessage);
                         } catch (e) {
-                            logger.error(`Error in web socket: ${e?.message ?? e}`);
+                            logger.error(`Error in back-end websocket opening: ${e?.message ?? e}`);
                             reject();
                         }
                     });
@@ -158,42 +216,21 @@ export default function (spec) {
                     uiInst.items.length = 0;
                     // open web socket
                     socket = await openSocket();
-                    if (socket.readyState === socket.OPEN) {
-                        const dto = dtoStart.createDto();
-                        dto.apiKey = modDg.getApiKey();
-                        dto.lang = modDg.getLang() ?? DEF.DATA_LANG;
-                        socket.send(JSON.stringify(dto));
-                    }
-
-                    // open audio stream and init recorder
+                    // ... then open audio stream
                     const constraints = {audio: true};
                     /** @type {MediaStream} */
                     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    // ... then init recorder
                     this.ifRecordOn = true;
                     const recorder = new MediaRecorder(stream);
-
-                    // collect audio data
-                    recorder.addEventListener('dataavailable', (e) => {
-                        logger.info(`Media data available.`);
-                        //chunks.push(e.data);
-                        if (socket.readyState === socket.OPEN) socket.send(e.data);
-                    });
-
-
-                    recorder.addEventListener('stop', () => {
-                        // convert chunks to one Blob and get URL for this Blob
-                        // const blob = new Blob(chunks, {type: "audio/ogg; codecs=opus"});
-                        // this.audioUrl = URL.createObjectURL(blob);
-                        logger.info(`Audio is stopped.`);
-                        socket.close();
-                    });
-
+                    recorder.addEventListener('dataavailable', onMediaData);
+                    recorder.addEventListener('stop', onMediaStop);
+                    recorder.start(TIME_SLICE_MS);
                     // save recorder to UiComponent and start recording
-                    const timeSlice = 250; // milliseconds
                     this.mediaRecorder = recorder;
-                    this.mediaRecorder.start(timeSlice);
+                    logger.info(`Media recorder is started. Time slice: ${TIME_SLICE_MS} ms.`);
                 } catch (e) {
-                    logger.error(`The following error occurred: ${e?.message ?? e}`);
+                    logger.error(`Cannot start recording. Error: ${e?.message ?? e}`);
                 }
             },
             onStop() {
@@ -212,10 +249,11 @@ export default function (spec) {
             await modDg.loadConfig();
             this.lang = modDg.getLang();
             this.ifConfigured = (modDg.getApiKey()?.length > 0);
+            if (!this.ifConfigured)
+                logger.info(`Deepgram API key is not set yet.`);
         },
         mounted() {
             document.title = 'Deepgram';
-
         },
     };
 }

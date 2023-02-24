@@ -32,6 +32,10 @@ export default class Aid_Mob_Front_App {
         const container = spec['TeqFw_Di_Shared_Container$'];
         /** @type {TeqFw_Core_Shared_Api_Logger} */
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
+        /** @type {TeqFw_Core_Shared_Logger_Base} */
+        const loggerBase = spec['TeqFw_Core_Shared_Logger_Base$'];
+        /** @type {Aid_Mob_Front_Mod_Logger_Transport} */
+        const modLogTrn = spec['TeqFw_Core_Shared_Api_Logger_Transport$']; // as interface
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
@@ -119,6 +123,16 @@ export default class Aid_Mob_Front_App {
                 return router;
             }
 
+            function initLogger() {
+                /** @type {TeqFw_Web_Shared_Dto_Config_Front.Dto} */
+                const cfg = modCfg.get();
+                const domain = cfg?.custom[DEF.SHARED.CFG_LOGS_AGG];
+                if (domain) {
+                    modLogTrn.enableLogs();
+                    loggerBase.setTransport(modLogTrn);
+                }
+            }
+
             // MAIN
             let res = true;
             _print = createPrintout(fnPrintout);
@@ -134,7 +148,7 @@ export default class Aid_Mob_Front_App {
                 },
                 template: '<router-view v-if="canDisplay"/><div class="launchpad" v-if="!canDisplay">App is starting...</div>',
                 async mounted() {
-                    logger.info(`Started with route: '${JSON.stringify(this.$router.currentRoute.value)}'`);
+                    logger.info(`Front app is mounted in DOM.`);
                     this.canDisplay = true;
                 }
             });
@@ -145,6 +159,7 @@ export default class Aid_Mob_Front_App {
             await modCfg.init({}); // this app has no separate 'doors' (entry points)
             _print(`Application config is loaded.`);
             try {
+                initLogger();
                 initQuasarUi(_root, quasar);
                 initUiComponents(_root);
                 _print(`Data sources are initialized.`);

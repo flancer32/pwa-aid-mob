@@ -1,5 +1,10 @@
 {
   "@teqfw/core": {
     "pidFile": "var/teqfw.pid"
+  },
+  "@teqfw/web": {
+    "custom": {
+      "logsAggregator": "logs.local.teqfw.com"
+    }
   }
 }
