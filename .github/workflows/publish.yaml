@@ -26,8 +26,11 @@ jobs:
         with:
           args: zip -qq --exclude=*.git* -r ${{env.ZIP}} ./
 
-      - name: Validate archive existence.
-        run: ls -lh ${{env.ZIP}}
+      - name: Validate archive existence and remote host params.
+        run: |
+          ls -lh ${{env.ZIP}}
+          echo "remote host: ${{ secrets.REMOTE_HOST_CONTABO }}"
+          echo "remote user: ${{env.USER}}"
 
       - name: Validate SSH connection.
         uses: appleboy/ssh-action@master
