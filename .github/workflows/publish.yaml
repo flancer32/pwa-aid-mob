@@ -29,6 +29,15 @@ jobs:
       - name: Validate archive existence.
         run: ls -lh ${{env.ZIP}}
 
+      - name: Validate SSH connection.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST_CONTABO }}
+          username: ${{ env.USER }}
+          key: ${{ secrets.SERVER_SSH_KEY_CONTABO }}
+          script: |
+            pwd
+
       - name: Copy files to Remote Server.
         uses: easingthemes/ssh-deploy@v2.0.7
         env:
