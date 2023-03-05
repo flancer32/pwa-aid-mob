@@ -40,7 +40,7 @@ export default class Aid_Mob_Front_Mod_Logger_Transport {
                     /** @type {TeqFw_Web_Shared_Dto_Config_Front.Dto} */
                     const cfg = modCfg.get();
                     const schema = '//';
-                    const domain = cfg?.custom[DEF.SHARED.CFG_LOGS_AGG];
+                    const domain = cfg?.custom?.[DEF.SHARED.CFG_LOGS_AGG];
                     BASE = `${schema}${domain}/log-agg-beacon/`;
                 }
                 return BASE;

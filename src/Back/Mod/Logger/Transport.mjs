@@ -31,7 +31,7 @@ export default class Aid_Mob_Back_Mod_Logger_Transport {
         function initHostname() {
             /** @type {TeqFw_Web_Back_Plugin_Dto_Config_Local.Dto} */
             const cfgWeb = config.getLocal(DEF.MOD_WEB.SHARED.NAME);
-            const host = cfgWeb?.custom[DEF.SHARED.CFG_LOGS_AGG];
+            const host = cfgWeb?.custom?.[DEF.SHARED.CFG_LOGS_AGG];
             if (host) _canSendLogs = true;
             return host;
         }

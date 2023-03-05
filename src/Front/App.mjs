@@ -126,7 +126,7 @@ export default class Aid_Mob_Front_App {
             function initLogger() {
                 /** @type {TeqFw_Web_Shared_Dto_Config_Front.Dto} */
                 const cfg = modCfg.get();
-                const domain = cfg?.custom[DEF.SHARED.CFG_LOGS_AGG];
+                const domain = cfg?.custom?.[DEF.SHARED.CFG_LOGS_AGG];
                 if (domain) {
                     modLogTrn.enableLogs();
                     loggerBase.setTransport(modLogTrn);
