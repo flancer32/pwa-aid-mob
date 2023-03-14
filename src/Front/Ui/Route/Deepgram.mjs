@@ -3,6 +3,10 @@
  *
  * @namespace Aid_Mob_Front_Ui_Route_Deepgram
  */
+// MODULE'S IMPORT
+// front version: use absolute path with mapping defined in '/teqfw.json'
+import {Deepgram} from "/src/@deepgram/index.js"; // node version: ... from "@deepgram/sdk/browser";
+
 // MODULE'S VARS
 const NS = 'Aid_Mob_Front_Ui_Route_Deepgram';
 const REF_CONFIG = 'config';
@@ -59,6 +63,7 @@ export default function (spec) {
             <q-btn label="Rec" v-on:click="onRec" :disable="ifDisableRec" :color="colorRec" icon="mic"/>
             <q-btn label="Stop" v-on:click="onStop" :disable="!ifRecordOn" :color="colorStop" icon="mic_off"/>
             <q-btn label="Config" v-on:click="onCfg" color="primary" icon="settings"/>
+            <q-btn label="Test" v-on:click="onTest" color="primary" />
         </q-card-actions>
         
         <q-card-section style="text-align: center;">
@@ -106,6 +111,19 @@ export default function (spec) {
             },
         },
         methods: {
+            onTest() {
+                const KEY = modDg.getApiKey();
+                console.log(`testing....`);
+                const deepgram = new Deepgram(KEY);
+                const deepgramSocket = deepgram.transcription.live({
+                    punctuate: true,
+                });
+                deepgramSocket.addEventListener("open", () => {
+                    console.log(`is opened!!`);
+                    deepgramSocket.close();
+                });
+            },
+
             async doConfigOk(key, lang) {
                 await modDg.set(key, lang);
                 this.lang = modDg.getLang();

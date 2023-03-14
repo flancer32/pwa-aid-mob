@@ -20,6 +20,7 @@
       "Aid_Mob_Back_App_Server_Handler_Socket": {}
     },
     "statics": {
+      "@deepgram": "@deepgram/sdk/dist/browser",
       "tesseract.js": "tesseract.js/dist",
       "tesseract.js-core": "tesseract.js-core"
     }
