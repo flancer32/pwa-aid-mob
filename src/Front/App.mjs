@@ -92,6 +92,10 @@ export default class Aid_Mob_Front_App {
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Deepgram$'),
                 });
                 router.addRoute({
+                    path: DEF.ROUTE_DEEPGRAM_FILE,
+                    component: () => container.get('Aid_Mob_Front_Ui_Route_Deepgram_File$'),
+                });
+                router.addRoute({
                     path: DEF.ROUTE_DIALOGFLOW,
                     component: () => container.get('Aid_Mob_Front_Ui_Route_Dialogflow$'),
                 });

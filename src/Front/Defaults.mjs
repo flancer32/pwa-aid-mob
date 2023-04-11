@@ -10,6 +10,7 @@ export default class Aid_Mob_Front_Defaults {
 
     ROUTE_CRED = '/cred';
     ROUTE_DEEPGRAM = '/deepgram';
+    ROUTE_DEEPGRAM_FILE = '/deepgram/file';
     ROUTE_DIALOGFLOW = '/dialogflow';
     ROUTE_HOME = '/';
     ROUTE_OCR = '/ocr';

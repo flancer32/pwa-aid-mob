@@ -17,6 +17,10 @@
     color: green;
 }
 
-.pointer {
+.app-pointer {
     cursor: pointer;
+}
+
+.appCard {
+    min-width: 300px;
 }

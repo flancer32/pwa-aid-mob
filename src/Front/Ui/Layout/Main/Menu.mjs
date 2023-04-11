@@ -30,6 +30,9 @@ export default function (spec) {
             <q-item active-class="active" to="${DEF.ROUTE_DEEPGRAM}">
                 <q-item-section>Deepgram</q-item-section>
             </q-item>
+            <q-item active-class="active" to="${DEF.ROUTE_DEEPGRAM_FILE}">
+                <q-item-section>Deepgram File</q-item-section>
+            </q-item>
         </q-list>
     </div>
 </q-scroll-area>

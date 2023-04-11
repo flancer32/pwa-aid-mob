@@ -23,7 +23,7 @@ export default function (spec) {
     const template = `
 <div class="row">
     <div>
-        <q-icon name="description" color="primary" class="pointer" v-on:click="onClick"/>
+        <q-icon name="description" color="primary" class="app-pointer" v-on:click="onClick"/>
     </div>
     <div style="margin: 0 5px 0 5px;">{{uiStart}}</div>
     <div style="margin: 0 5px 0 5px;">{{uiDuration}}</div>
