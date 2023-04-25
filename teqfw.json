@@ -24,5 +24,10 @@
       "tesseract.js": "tesseract.js/dist",
       "tesseract.js-core": "tesseract.js-core"
     }
+  },
+  "@teqfw/web-api": {
+    "services": [
+      "Aid_Mob_Back_Web_Api_Deepgram_File"
+    ]
   }
 }

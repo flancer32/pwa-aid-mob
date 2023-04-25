@@ -16,7 +16,7 @@
   "repository": "github:flancer32/pwa-aid-mob",
   "scripts": {
     "help": "node ./bin/tequila.mjs -h",
-    "start": "node ./bin/tequila.mjs web-server-start --http1 --useWs",
+    "start": "node ./bin/tequila.mjs web-server-start --http1",
     "stop": "node ./bin/tequila.mjs web-server-stop"
   },
   "dependencies": {
@@ -24,9 +24,11 @@
     "@google-cloud/dialogflow": "^5.5.0",
     "@teqfw/core": "github:teqfw/core",
     "@teqfw/di": "github:teqfw/di",
+    "@teqfw/test": "github:teqfw/test",
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
     "@teqfw/vue": "github:teqfw/vue",
     "@teqfw/web": "github:teqfw/web",
+    "@teqfw/web-api": "github:teqfw/web-api",
     "pb-util": "^1.0.3",
     "tesseract.js": "^4.0.2",
     "ws": "*"
