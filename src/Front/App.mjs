@@ -44,6 +44,8 @@ export default class Aid_Mob_Front_App {
         const layoutCenter = spec['Aid_Mob_Front_Ui_Layout_Center$'];
         /** @type {Aid_Mob_Front_Ui_Layout_Main.vueCompTmpl} */
         const layoutMain = spec['Aid_Mob_Front_Ui_Layout_Main$'];
+        /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
+        const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
@@ -159,6 +161,7 @@ export default class Aid_Mob_Front_App {
             // ... and add global available components
             _root.component('layoutCenter', layoutCenter);
             _root.component('layoutMain', layoutMain);
+            _root.component('uiSpinner', uiSpinner);
             // other initialization
             await modCfg.init({}); // this app has no separate 'doors' (entry points)
             _print(`Application config is loaded.`);

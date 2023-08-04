@@ -46,7 +46,6 @@ function formatText(paragraphs) {
         let bunch = `${fragment++}\n`;
         bunch += `${formatTime(start, end)}\n`;
         bunch += `SPEAKER_${speakerId}:`;
-        debugger
         for (const st of pr?.sentences) {
             bunch += ` ${st?.text}`;
         }
@@ -59,24 +58,27 @@ function formatText(paragraphs) {
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
+ * @param {Aid_Mob_Front_Defaults} DEF
+ * @param {Aid_Mob_Front_Mod_Config_Deepgram} modCfg
+ * @param {Aid_Mob_Front_Ui_Lib_Config_Deepgram.vueCompTmpl} uiConfig
+ * @param {TeqFw_Web_Api_Front_Web_Connect} connApi
+ * @param {Aid_Mob_Shared_Web_Api_Deepgram_File} apiFile
  * @returns {Aid_Mob_Front_Ui_Route_Deepgram_File.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-    /** @type {Aid_Mob_Front_Mod_Api_Deepgram} */
-    const modDg = spec['Aid_Mob_Front_Mod_Api_Deepgram$'];
-    /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.vueCompTmpl} */
-    const uiConfig = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_Config$'];
-    /** @type {TeqFw_Web_Api_Front_Web_Connect} */
-    const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
-    /** @type {Aid_Mob_Shared_Web_Api_Deepgram_File} */
-    const apiFile = spec['Aid_Mob_Shared_Web_Api_Deepgram_File$'];
-
+export default function (
+    {
+        ['Aid_Mob_Front_Defaults$']: DEF,
+        ['Aid_Mob_Front_Mod_Config_Deepgram$']: modCfg,
+        ['Aid_Mob_Front_Ui_Lib_Config_Deepgram$']: uiConfig,
+        ['TeqFw_Web_Api_Front_Web_Connect$']: connApi,
+        ['Aid_Mob_Shared_Web_Api_Deepgram_File$']: apiFile,
+    }
+) {
     // VARS
     const template = `
 <layout-main>
     <ui-config ref="${REF_CONFIG}" @onOk="doConfigOk"/>
+    
     <q-card-section>
         <input id="${ID_UPLOAD}" type="file" tabindex="-1" hidden v-on:change="onFileSelected">
         <div class="row q-gutter-xs">
@@ -94,6 +96,8 @@ export default function (spec) {
         <q-btn label="Transcribe" v-on:click="onTranscribe" color="${DEF.COLOR_Q_PRIMARY}" :disable="!ifCanUpload"/>
         <q-btn label="Config" v-on:click="onConfig" color="${DEF.COLOR_Q_PRIMARY}"/>
     </q-card-actions>
+    
+    <ui-spinner :loading="ifLoading"/>
 </layout-main>
 `;
     // MAIN
@@ -113,6 +117,7 @@ export default function (spec) {
                 bufferB64: null,
                 fldFile: null,
                 formatted: null,
+                ifLoading: false,
             };
         },
         computed: {
@@ -122,11 +127,9 @@ export default function (spec) {
         },
         methods: {
             onConfig() {
-                const key = modDg.getApiKey();
-                const lang = modDg.getLang();
-                /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.IUi} */
+                /** @type {Aid_Mob_Front_Ui_Lib_Config_Deepgram.IUi} */
                 const ui = this.$refs[REF_CONFIG];
-                ui.show(key, lang);
+                ui.show();
             },
             onFileSelect() {
                 this.bufferB64 = null;
@@ -150,10 +153,10 @@ export default function (spec) {
             },
             async onTranscribe() {
                 const req = apiFile.createReq();
-                req.apiKey = modDg.getApiKey();
+                req.apiKey = modCfg.getApiKey();
                 req.base64 = this.bufferB64;
-                req.lang = modDg.getLang();
-                debugger
+                req.lang = modCfg.getLang();
+                this.ifLoading = true;
                 // noinspection JSValidateTypes
                 /** @type {Aid_Mob_Shared_Web_Api_Deepgram_File.Response} */
                 const res = await connApi.send(req, apiFile);
@@ -169,11 +172,8 @@ export default function (spec) {
                 setTimeout(() => {
                     URL.revokeObjectURL(downloadLink.href);
                 }, 5000);
-
+                this.ifLoading = false;
             },
-        },
-        async created() {
-            await modDg.loadConfig();
         },
         mounted() {
             document.title = 'Deepgram File';

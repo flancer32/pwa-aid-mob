@@ -1,10 +1,10 @@
 /**
  * Dialog to configure Deepgram demo.
  *
- * @namespace Aid_Mob_Front_Ui_Route_Deepgram_A_Config
+ * @namespace Aid_Mob_Front_Ui_Lib_Config_Deepgram
  */
 // MODULE'S VARS
-const NS = 'Aid_Mob_Front_Ui_Route_Deepgram_A_Config';
+const NS = 'Aid_Mob_Front_Ui_Lib_Config_Deepgram';
 const EVT_OK = 'onOk';
 const REF_SELF = 'self';
 
@@ -14,20 +14,12 @@ const REF_SELF = 'self';
 /**
  * @interface
  * @mixin
- * @memberOf Aid_Mob_Front_Ui_Route_Deepgram_A_Config
+ * @memberOf Aid_Mob_Front_Ui_Lib_Config_Deepgram
  */
 class IUi {
-    /**
-     * Hide dialog.
-     */
     hide() { }
 
-    /**
-     * Set API key.
-     * @param {string} key
-     * @param {string} lang
-     */
-    show(key, lang) { }
+    show() { }
 }
 
 
@@ -35,12 +27,16 @@ class IUi {
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.vueCompTmpl}
+ * @param {Aid_Mob_Front_Defaults} DEF
+ * @param {Aid_Mob_Front_Mod_Config_Deepgram} modCfg
+ * @returns {Aid_Mob_Front_Ui_Lib_Config_Deepgram.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-
+export default function (
+    {
+        ['Aid_Mob_Front_Defaults$']: DEF,
+        ['Aid_Mob_Front_Mod_Config_Deepgram$']: modCfg,
+    }
+) {
     // VARS
     const template = `
 <q-dialog ref="${REF_SELF}">
@@ -73,7 +69,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Aid_Mob_Front_Ui_Route_Deepgram_A_Config
+     * @memberOf Aid_Mob_Front_Ui_Lib_Config_Deepgram
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -95,7 +91,7 @@ export default function (spec) {
             },
         },
         /**
-         * @mixes Aid_Mob_Front_Ui_Route_Deepgram_A_Config.IUi
+         * @mixes Aid_Mob_Front_Ui_Lib_Config_Deepgram.IUi
          */
         methods: {
             hide() {
@@ -104,11 +100,12 @@ export default function (spec) {
             },
             onOk() {
                 this.hide();
-                this.$emit(EVT_OK, this.fldKey, this.fldLang);
+                modCfg.set(this.fldKey, this.fldLang);
+                this.$emit(EVT_OK);
             },
-            show(key, lang) {
-                this.fldKey = key;
-                this.fldLang = lang ?? DEF.DATA_LANG;
+            show() {
+                this.fldKey = modCfg.getApiKey();
+                this.fldLang = modCfg.getLang();
                 const ui = this.$refs[REF_SELF];
                 ui.show();
             },

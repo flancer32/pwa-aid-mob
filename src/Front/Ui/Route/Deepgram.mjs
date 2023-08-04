@@ -24,14 +24,14 @@ export default function (spec) {
     const DEF = spec['Aid_Mob_Front_Defaults$'];
     /** @type {TeqFw_Core_Shared_Api_Logger} */
     const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-    /** @type {Aid_Mob_Front_Mod_Api_Deepgram} */
-    const modDg = spec['Aid_Mob_Front_Mod_Api_Deepgram$'];
+    /** @type {Aid_Mob_Front_Mod_Config_Deepgram} */
+    const modDg = spec['Aid_Mob_Front_Mod_Config_Deepgram$'];
     /** @type {Aid_Mob_Shared_Dto_Deepgram_Cfg} */
     const dtoStart = spec['Aid_Mob_Shared_Dto_Deepgram_Cfg$'];
     /** @type {Aid_Mob_Shared_Dto_Deepgram_Command} */
     const dtoCmd = spec['Aid_Mob_Shared_Dto_Deepgram_Command$'];
-    /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.vueCompTmpl} */
-    const uiConfig = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_Config$'];
+    /** @type {Aid_Mob_Front_Ui_Lib_Config_Deepgram.vueCompTmpl} */
+    const uiConfig = spec['Aid_Mob_Front_Ui_Lib_Config_Deepgram$'];
     /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp.vueCompTmpl} */
     const uiResp = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp$'];
     /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Line.vueCompTmpl} */
@@ -123,9 +123,7 @@ export default function (spec) {
                     deepgramSocket.close();
                 });
             },
-
             async doConfigOk(key, lang) {
-                await modDg.set(key, lang);
                 this.lang = modDg.getLang();
                 this.ifConfigured = (modDg.getApiKey().length > 0);
             },
@@ -137,7 +135,7 @@ export default function (spec) {
             async onCfg() {
                 const key = modDg.getApiKey();
                 const lang = modDg.getLang();
-                /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Config.IUi} */
+                /** @type {Aid_Mob_Front_Ui_Lib_Config_Deepgram.IUi} */
                 const ui = this.$refs[REF_CONFIG];
                 ui.show(key, lang);
             },
@@ -262,9 +260,8 @@ export default function (spec) {
                 tracks.forEach((track) => track.stop());
             },
         },
-        async created() {
+        created() {
             this.ifAudio = !!navigator.mediaDevices;
-            await modDg.loadConfig();
             this.lang = modDg.getLang();
             this.ifConfigured = (modDg.getApiKey()?.length > 0);
             if (!this.ifConfigured)

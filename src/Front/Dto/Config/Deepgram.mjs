@@ -11,11 +11,14 @@ const NS = 'Aid_Mob_Front_Dto_Config_Deepgram';
 class Dto {
     static namespace = NS;
     /**
-     * API key
+     * Deepgram API key to connect to the Deepgram server.
      * @type {string}
      */
     key;
-    /** @type {string} */
+    /**
+     * Currently selected language for transcriptions.
+     * @type {string}
+     */
     lang;
 }
 
