@@ -5,7 +5,7 @@
  */
 // MODULE'S IMPORT
 // front version: use absolute path with mapping defined in '/teqfw.json'
-import {Deepgram} from "/src/@deepgram/index.js"; // node version: ... from "@deepgram/sdk/browser";
+import {Deepgram} from '/src/@deepgram/index.js'; // node version: ... from "@deepgram/sdk/browser";
 
 // MODULE'S VARS
 const NS = 'Aid_Mob_Front_Ui_Route_Deepgram';
@@ -19,26 +19,29 @@ const TIME_SLICE_MS = 250;
  *
  * @returns {Aid_Mob_Front_Ui_Route_Deepgram.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-    /** @type {TeqFw_Core_Shared_Api_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-    /** @type {Aid_Mob_Front_Mod_Config_Deepgram} */
-    const modDg = spec['Aid_Mob_Front_Mod_Config_Deepgram$'];
-    /** @type {Aid_Mob_Shared_Dto_Deepgram_Cfg} */
-    const dtoStart = spec['Aid_Mob_Shared_Dto_Deepgram_Cfg$'];
-    /** @type {Aid_Mob_Shared_Dto_Deepgram_Command} */
-    const dtoCmd = spec['Aid_Mob_Shared_Dto_Deepgram_Command$'];
-    /** @type {Aid_Mob_Front_Ui_Lib_Config_Deepgram.vueCompTmpl} */
-    const uiConfig = spec['Aid_Mob_Front_Ui_Lib_Config_Deepgram$'];
-    /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp.vueCompTmpl} */
-    const uiResp = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp$'];
-    /** @type {Aid_Mob_Front_Ui_Route_Deepgram_A_Line.vueCompTmpl} */
-    const uiLine = spec['Aid_Mob_Front_Ui_Route_Deepgram_A_Line$'];
-    /** @type {typeof Aid_Mob_Shared_Dto_Deepgram_Command.Name} */
-    const COMMAND = spec['Aid_Mob_Shared_Dto_Deepgram_Command.Name$'];
-
+/**
+ * @param {Aid_Mob_Front_Defaults} DEF
+ * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+ * @param {Aid_Mob_Front_Mod_Config_Deepgram} modDg
+ * @param {Aid_Mob_Shared_Dto_Deepgram_Cfg} dtoStart
+ * @param {Aid_Mob_Shared_Dto_Deepgram_Command} dtoCmd
+ * @param {Aid_Mob_Front_Ui_Lib_Config_Deepgram.vueCompTmpl} uiConfig
+ * @param {Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp.vueCompTmpl} uiResp
+ * @param {Aid_Mob_Front_Ui_Route_Deepgram_A_Line.vueCompTmpl} uiLine
+ * @param {typeof Aid_Mob_Shared_Dto_Deepgram_Command.Name} COMMAND
+ */
+export default function (
+    {
+        Aid_Mob_Front_Defaults$: DEF,
+        TeqFw_Core_Shared_Api_Logger$$: logger,
+        Aid_Mob_Front_Mod_Config_Deepgram$: modDg,
+        Aid_Mob_Shared_Dto_Deepgram_Cfg$: dtoStart,
+        Aid_Mob_Shared_Dto_Deepgram_Command$: dtoCmd,
+        Aid_Mob_Front_Ui_Lib_Config_Deepgram$: uiConfig,
+        Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp$: uiResp,
+        Aid_Mob_Front_Ui_Route_Deepgram_A_Line$: uiLine,
+        ['Aid_Mob_Shared_Dto_Deepgram_Command.Name$']: COMMAND,
+    }) {
     // VARS
     logger.setNamespace(NS);
     const template = `

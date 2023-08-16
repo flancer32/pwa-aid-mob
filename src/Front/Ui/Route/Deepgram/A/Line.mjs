@@ -15,10 +15,13 @@ const _formatter = new Intl.NumberFormat('en-US', {style: 'decimal', minimumFrac
  *
  * @returns {Aid_Mob_Front_Ui_Route_Deepgram_A_Line.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-
+/**
+ * @param {Aid_Mob_Front_Defaults} DEF
+ */
+export default function (
+    {
+        Aid_Mob_Front_Defaults$: DEF,
+    }) {
     // VARS
     const template = `
 <div class="row">

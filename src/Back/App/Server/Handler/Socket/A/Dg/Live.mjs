@@ -7,13 +7,15 @@ import SDK from '@deepgram/sdk';
 
 // MODULE'S CLASSES
 export default class Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {typeof Aid_Mob_Shared_Dto_Deepgram_Command.Name} */
-        const COMMAND = spec['Aid_Mob_Shared_Dto_Deepgram_Command.Name$'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {typeof Aid_Mob_Shared_Dto_Deepgram_Command.Name} COMMAND
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            ['Aid_Mob_Shared_Dto_Deepgram_Command.Name$']: COMMAND,
+        }) {
         // VARS
         logger.setNamespace(this.constructor.name);
 

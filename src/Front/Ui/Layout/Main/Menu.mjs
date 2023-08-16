@@ -12,10 +12,13 @@ const NS = 'Aid_Mob_Front_Ui_Layout_Main_Menu';
  *
  * @returns {Aid_Mob_Front_Ui_Layout_Main_Menu.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-
+/**
+ * @param {Aid_Mob_Front_Defaults} DEF
+ */
+export default function (
+    {
+        Aid_Mob_Front_Defaults$: DEF,
+    }) {
     // VARS
     const template = `
 <q-scroll-area class="fit">

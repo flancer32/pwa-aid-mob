@@ -5,19 +5,21 @@
  * @implements TeqFw_Core_Shared_Api_Logger_Transport
  */
 export default class Aid_Mob_Front_Mod_Logger_Transport {
-    constructor(spec) {
-        // DEPS
-        /** @type {Aid_Mob_Front_Defaults} */
-        const DEF = spec['Aid_Mob_Front_Defaults$'];
-        /** @type {TeqFw_Web_Front_Mod_Config} */
-        const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
-        /** @type {TeqFw_Core_Shared_Logger_Transport_Console} */
-        const transConsole = spec['TeqFw_Core_Shared_Logger_Transport_Console$'];
-        /** @type {Aid_Mob_Shared_Dto_Log} */
-        const dtoLog = spec['Aid_Mob_Shared_Dto_Log$'];
-        /** @type {typeof TeqFw_Web_Shared_Enum_Log_Type} */
-        const TYPE = spec['TeqFw_Web_Shared_Enum_Log_Type$'];
-
+    /**
+     * @param {Aid_Mob_Front_Defaults} DEF
+     * @param {TeqFw_Web_Front_Mod_Config} modCfg
+     * @param {TeqFw_Core_Shared_Logger_Transport_Console} transConsole
+     * @param {Aid_Mob_Shared_Dto_Log} dtoLog
+     * @param {typeof TeqFw_Web_Shared_Enum_Log_Type} TYPE
+     */
+    constructor(
+        {
+            Aid_Mob_Front_Defaults$: DEF,
+            TeqFw_Web_Front_Mod_Config$: modCfg,
+            TeqFw_Core_Shared_Logger_Transport_Console$: transConsole,
+            Aid_Mob_Shared_Dto_Log$: dtoLog,
+            TeqFw_Web_Shared_Enum_Log_Type$: TYPE,
+        }) {
         // VARS
         const STORE_KEY = `${DEF.SHARED.NAME}/front/log/monitor`;
         let BASE;

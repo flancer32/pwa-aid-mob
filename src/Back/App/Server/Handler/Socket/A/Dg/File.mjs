@@ -8,11 +8,13 @@ import {join} from 'node:path';
 
 // MODULE'S CLASSES
 export default class Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Back_Config} */
-        const config = spec['TeqFw_Core_Back_Config$'];
-
+    /**
+     * @param {TeqFw_Core_Back_Config} config
+     */
+    constructor(
+        {
+            TeqFw_Core_Back_Config$: config,
+        }) {
         // INSTANCE METHODS
 
         /**

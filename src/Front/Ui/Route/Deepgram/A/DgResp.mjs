@@ -36,10 +36,13 @@ class IUi {
  *
  * @returns {Aid_Mob_Front_Ui_Route_Deepgram_A_DgResp.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-
+/**
+ * @param {Aid_Mob_Front_Defaults} DEF
+ */
+export default function (
+    {
+        Aid_Mob_Front_Defaults$: DEF,
+    }) {
     // VARS
     const template = `
 <q-dialog ref="${REF_SELF}">

@@ -12,12 +12,15 @@ const NS = 'Aid_Mob_Front_Ui_Layout_Main';
  *
  * @returns {Aid_Mob_Front_Ui_Layout_Main.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-    /** @type {Aid_Mob_Front_Ui_Layout_Main_Menu.vueCompTmpl} */
-    const uiMenu = spec['Aid_Mob_Front_Ui_Layout_Main_Menu$'];
-
+/**
+ * @param {Aid_Mob_Front_Defaults} DEF
+ * @param {Aid_Mob_Front_Ui_Layout_Main_Menu.vueCompTmpl} uiMenu
+ */
+export default function (
+    {
+        Aid_Mob_Front_Defaults$: DEF,
+        Aid_Mob_Front_Ui_Layout_Main_Menu$: uiMenu,
+    }) {
     // VARS
     const template = `
 <q-layout view="hhh lpR fff" class="">

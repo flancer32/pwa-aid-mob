@@ -8,15 +8,17 @@
  * @implements TeqFw_Web_Api_Back_Api_Service
  */
 export default class Aid_Mob_Back_Web_Api_Deepgram_File {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {Aid_Mob_Shared_Web_Api_Deepgram_File} */
-        const endpoint = spec['Aid_Mob_Shared_Web_Api_Deepgram_File$'];
-        /** @type {Aid_Mob_Back_Act_Deepgram_Transcribe_File.act|function} */
-        const actFile = spec['Aid_Mob_Back_Act_Deepgram_Transcribe_File$'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {Aid_Mob_Shared_Web_Api_Deepgram_File} endpoint
+     * @param {Aid_Mob_Back_Act_Deepgram_Transcribe_File.act|function} actFile
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            Aid_Mob_Shared_Web_Api_Deepgram_File$: endpoint,
+            Aid_Mob_Back_Act_Deepgram_Transcribe_File$: actFile,
+        }) {
         // VARS
         logger.setNamespace(this.constructor.name);
 

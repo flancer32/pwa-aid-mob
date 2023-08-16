@@ -10,11 +10,13 @@ import sdk from '@deepgram/sdk';
 const NS = 'Aid_Mob_Back_Act_Deepgram_Transcribe_File';
 
 // MODULE'S FUNCTIONS
-export default function (spec) {
-    // DEPS
-    /** @type {TeqFw_Core_Shared_Api_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-
+/**
+ * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+ */
+export default function (
+    {
+        TeqFw_Core_Shared_Api_Logger$$: logger,
+    }) {
     // VARS
     logger.setNamespace(NS);
 

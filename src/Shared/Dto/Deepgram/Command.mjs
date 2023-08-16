@@ -29,10 +29,13 @@ class Dto {
  * @implements TeqFw_Core_Shared_Api_Factory_Dto
  */
 export default class Aid_Mob_Shared_Dto_Deepgram_Command {
-    constructor(spec) {
-        /** @type {TeqFw_Core_Shared_Util_Cast.castEnum|function} */
-        const castEnum = spec['TeqFw_Core_Shared_Util_Cast.castEnum'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast.castEnum|function} castEnum
+     */
+    constructor(
+        {
+            ['TeqFw_Core_Shared_Util_Cast.castEnum']: castEnum,
+        }) {
         /**
          * @param {Aid_Mob_Shared_Dto_Deepgram_Command.Dto} [data]
          * @return {Aid_Mob_Shared_Dto_Deepgram_Command.Dto}

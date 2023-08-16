@@ -17,16 +17,19 @@ const REF_CONFIG = 'config';
  *
  * @returns {Aid_Mob_Front_Ui_Route_Dialogflow.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Aid_Mob_Front_Defaults} */
-    const DEF = spec['Aid_Mob_Front_Defaults$'];
-    /** @type {Aid_Mob_Front_Mod_Api_Dialogflow} */
-    const modGdf = spec['Aid_Mob_Front_Mod_Api_Dialogflow$'];
-    /** @type {Aid_Mob_Shared_Dto_Start_Dialogflow} */
-    const dtoStart = spec['Aid_Mob_Shared_Dto_Start_Dialogflow$'];
-    /** @type {Aid_Mob_Front_Ui_Route_Dialogflow_A_Config.vueCompTmpl} */
-    const uiConfig = spec['Aid_Mob_Front_Ui_Route_Dialogflow_A_Config$'];
-
+/**
+ * @param {Aid_Mob_Front_Defaults} DEF
+ * @param {Aid_Mob_Front_Mod_Api_Dialogflow} modGdf
+ * @param {Aid_Mob_Shared_Dto_Start_Dialogflow} dtoStart
+ * @param {Aid_Mob_Front_Ui_Route_Dialogflow_A_Config.vueCompTmpl} uiConfig
+ */
+export default function (
+    {
+        Aid_Mob_Front_Defaults$: DEF,
+        Aid_Mob_Front_Mod_Api_Dialogflow$: modGdf,
+        Aid_Mob_Shared_Dto_Start_Dialogflow$: dtoStart,
+        Aid_Mob_Front_Ui_Route_Dialogflow_A_Config$: uiConfig,
+    }) {
     // VARS
     const template = `
 <layout-main>

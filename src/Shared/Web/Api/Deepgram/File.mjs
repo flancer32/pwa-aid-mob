@@ -34,11 +34,13 @@ class Response {
  * @implements TeqFw_Web_Api_Shared_Api_Endpoint
  */
 export default class Aid_Mob_Shared_Web_Api_Deepgram_File {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
-        const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast.castString|function} castString
+     */
+    constructor(
+        {
+            ['TeqFw_Core_Shared_Util_Cast.castString']: castString,
+        }) {
         // INSTANCE METHODS
 
         /**

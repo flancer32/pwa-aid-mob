@@ -4,19 +4,21 @@
  * @implements TeqFw_Web_Back_Api_Listener_Socket
  */
 export default class Aid_Mob_Back_App_Server_Handler_Socket {
-    constructor(spec) {
-        // DEPS
-        /** @type {Aid_Mob_Back_Defaults} */
-        const DEF = spec['Aid_Mob_Back_Defaults$'];
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File} */
-        const aDgFile = spec['Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File$'];
-        /** @type {Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live} */
-        const aDgLive = spec['Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live$'];
-        /** @type {Aid_Mob_Back_App_Server_Handler_Socket_A_Gdf_Live} */
-        const aGdfLive = spec['Aid_Mob_Back_App_Server_Handler_Socket_A_Gdf_Live$'];
-
+    /**
+     * @param {Aid_Mob_Back_Defaults} DEF
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File} aDgFile
+     * @param {Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live} aDgLive
+     * @param {Aid_Mob_Back_App_Server_Handler_Socket_A_Gdf_Live} aGdfLive
+     */
+    constructor(
+        {
+            Aid_Mob_Back_Defaults$: DEF,
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_File$: aDgFile,
+            Aid_Mob_Back_App_Server_Handler_Socket_A_Dg_Live$: aDgLive,
+            Aid_Mob_Back_App_Server_Handler_Socket_A_Gdf_Live$: aGdfLive,
+        }) {
         // VARS
         logger.setNamespace(this.constructor.name);
 
@@ -24,9 +26,9 @@ export default class Aid_Mob_Back_App_Server_Handler_Socket {
 
         this.canProcess = function (req) {
             return req.url.includes(DEF.SHARED.SPACE_WS);
-        }
+        };
 
-        this.init = async function () { }
+        this.init = async function () { };
 
         this.prepareSocket = function (ws) {
             // ws.binaryType = 'fragments';

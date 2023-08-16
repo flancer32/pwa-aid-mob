@@ -18,11 +18,14 @@ class Dto {
  * @implements TeqFw_Core_Shared_Api_Factory_Dto
  */
 export default class Aid_Mob_Front_Dto_Config_Dialogflow {
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast.castString|function} castString
+     */
 
-    constructor(spec) {
-        /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
-        const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
-
+    constructor(
+        {
+            ['TeqFw_Core_Shared_Util_Cast.castString']: castString,
+        }) {
         // INSTANCE METHODS
         /**
          * @param {Aid_Mob_Front_Dto_Config_Dialogflow.Dto} [data]
