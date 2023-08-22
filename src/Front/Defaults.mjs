@@ -20,8 +20,12 @@ export default class Aid_Mob_Front_Defaults {
     /** @type {Aid_Mob_Shared_Defaults} */
     SHARED;
 
-    constructor(spec) {
-        this.SHARED = spec['Aid_Mob_Shared_Defaults$'];
+    constructor(
+        {
+            Aid_Mob_Shared_Defaults$: SHARED
+        }
+    ) {
+        this.SHARED = SHARED;
         Object.freeze(this);
     }
 }

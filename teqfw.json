@@ -6,9 +6,10 @@
   "@teqfw/di": {
     "autoload": {
       "ns": "Aid_Mob",
-      "path": "./src"
+      "path": "./src",
+      "ext": "mjs"
     },
-    "replace": {
+    "replaces": {
       "TeqFw_Core_Shared_Api_Logger_Transport": {
         "back": "Aid_Mob_Back_Mod_Logger_Transport",
         "front": "Aid_Mob_Front_Mod_Logger_Transport"

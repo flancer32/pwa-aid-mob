@@ -18,35 +18,37 @@ const NS = 'Aid_Mob_Front_App';
  * @implements TeqFw_Web_Front_Api_IApp
  */
 export default class Aid_Mob_Front_App {
-    constructor(spec) {
-        // EXTRACT DEPS
-        /** @type {function} */
-        const createApp = spec['TeqFw_Vue_Front_Ext_Vue.createApp'];
-        /** @type {function} */
-        const createRouter = spec['TeqFw_Vue_Front_Ext_Router.createRouter'];
-        /** @type {function} */
-        const createWebHashHistory = spec['TeqFw_Vue_Front_Ext_Router.createWebHashHistory'];
-        /** @type {Aid_Mob_Front_Defaults} */
-        const DEF = spec['Aid_Mob_Front_Defaults$'];
-        /** @type {TeqFw_Di_Shared_Container} */
-        const container = spec['TeqFw_Di_Shared_Container$'];
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {TeqFw_Core_Shared_Logger_Base} */
-        const loggerBase = spec['TeqFw_Core_Shared_Logger_Base$'];
-        /** @type {Aid_Mob_Front_Mod_Logger_Transport} */
-        const modLogTrn = spec['TeqFw_Core_Shared_Api_Logger_Transport$']; // as interface
-        /** @type {TeqFw_Ui_Quasar_Front_Lib} */
-        const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
-        /** @type {TeqFw_Web_Front_Mod_Config} */
-        const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
-        /** @type {Aid_Mob_Front_Ui_Layout_Center.vueCompTmpl} */
-        const layoutCenter = spec['Aid_Mob_Front_Ui_Layout_Center$'];
-        /** @type {Aid_Mob_Front_Ui_Layout_Main.vueCompTmpl} */
-        const layoutMain = spec['Aid_Mob_Front_Ui_Layout_Main$'];
-        /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
-        const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
-
+    /**
+     * @param {TeqFw_Di_Container} container
+     * @param {function} createApp
+     * @param {function} createRouter
+     * @param {function} createWebHashHistory
+     * @param {Aid_Mob_Front_Defaults} DEF
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {TeqFw_Core_Shared_Logger_Base} loggerBase
+     * @param {Aid_Mob_Front_Mod_Logger_Transport} modLogTrn -  injected as interface
+     * @param {TeqFw_Ui_Quasar_Front_Lib} quasar
+     * @param {TeqFw_Web_Front_Mod_Config} modCfg
+     * @param {Aid_Mob_Front_Ui_Layout_Center.vueCompTmpl} layoutCenter
+     * @param {Aid_Mob_Front_Ui_Layout_Main.vueCompTmpl} layoutMain
+     * @param {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} uiSpinner
+     */
+    constructor(
+        {
+            container,
+            'TeqFw_Vue_Front_Ext_Vue.createApp': createApp,
+            'TeqFw_Vue_Front_Ext_Router.createRouter': createRouter,
+            'TeqFw_Vue_Front_Ext_Router.createWebHashHistory': createWebHashHistory,
+            Aid_Mob_Front_Defaults$: DEF,
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            TeqFw_Core_Shared_Logger_Base$: loggerBase,
+            TeqFw_Core_Shared_Api_Logger_Transport$: modLogTrn,
+            TeqFw_Ui_Quasar_Front_Lib: quasar,
+            TeqFw_Web_Front_Mod_Config$: modCfg,
+            Aid_Mob_Front_Ui_Layout_Center$: layoutCenter,
+            Aid_Mob_Front_Ui_Layout_Main$: layoutMain,
+            TeqFw_Ui_Quasar_Front_Lib_Spinner$: uiSpinner,
+        }) {
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
         let _print; // function to printout logs to UI or console

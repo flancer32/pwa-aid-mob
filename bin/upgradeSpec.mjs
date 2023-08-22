@@ -10,7 +10,8 @@ import {readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
 const REG_TARGET = /^([\s\w]*(constructor|function)\s*\w*\s*\(spec\)\s*\{\s*)(.*)/sm;
 const REG_SPEC_DOC = /\/\*\*\s*@type\s*(\{[^}]*\})/s;
 const REG_SPEC_PARAM = /const\s+(\w*)\s+=\s+spec(\[[^\]]+\]);*\s*(\/\/(.*))?/s;
-const REG_TYPE_DI = /\['(.+)']/s;
+const REG_TYPE_DI_WO = /\['(.+)']/s;
+const REG_TYPE_DI_WITH = /\[(.+)]/s;
 
 const FILES_SKIP = [];
 
@@ -24,18 +25,26 @@ function getFiles() {
     // FUNCS
 
     function readDirectory(curDir, files) {
-        const items = readdirSync(curDir);
-        for (const item of items) {
-            const itemPath = join(curDir, item);
-            const stats = statSync(itemPath);
-            if (
-                stats.isFile() &&
-                ((extname(item) === '.mjs') || (extname(item) === '.js'))
-            ) {
-                files.push(itemPath);
-            } else if (stats.isDirectory()) {
-                readDirectory(itemPath, files);
+        const statsRoot = statSync(curDir);
+        if (statsRoot.isDirectory()) {
+            const items = readdirSync(curDir);
+            for (const item of items) {
+                const itemPath = join(curDir, item);
+                const statsSub = statSync(itemPath);
+                if (
+                    statsSub.isFile() &&
+                    ((extname(item) === '.mjs') || (extname(item) === '.js'))
+                ) {
+                    files.push(itemPath);
+                } else if (statsSub.isDirectory()) {
+                    readDirectory(itemPath, files);
+                }
             }
+        } else if (
+            statsRoot.isFile() &&
+            ((extname(curDir) === '.mjs') || (extname(curDir) === '.js'))
+        ) {
+            files.push(curDir);
         }
     }
 
@@ -67,7 +76,10 @@ function processOneFile(file) {
         let fromSpec = '';
         for (const line of lines) {
             fromSpec += line + '\n';
-            if (line.indexOf('// DEPS') !== -1) continue;
+            if (
+                (line.indexOf('// DEPS') !== -1) ||
+                (line.indexOf('// EXTRACT DEPS') !== -1)
+            ) continue;
             const partsDoc = REG_SPEC_DOC.exec(line);
             if (partsDoc?.length) {
                 docType = partsDoc[1];
@@ -87,10 +99,13 @@ function processOneFile(file) {
                     (type.indexOf('#') === -1) &&
                     (type.indexOf('@') === -1)
                 ) {
-                    const partsKey = REG_TYPE_DI.exec(type);
+                    // w/o quotes
+                    const partsKey = REG_TYPE_DI_WO.exec(type);
                     toSpec += ' '.repeat(14) + `${partsKey[1]}: ${param},\n`;
                 } else {
-                    toSpec += ' '.repeat(14) + `${type}: ${param},\n`;
+                    // with quotes
+                    const partsKey = REG_TYPE_DI_WITH.exec(type);
+                    toSpec += ' '.repeat(14) + `${partsKey[1]}: ${param},\n`;
                 }
                 continue;
             }
