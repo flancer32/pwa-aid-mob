@@ -123,9 +123,11 @@ export default class Aid_Mob_Front_App {
                 //
                 router.afterEach((to) => {
                     const _paq = window._paq;
-                    _paq.push(['setCustomUrl', to.path]);
-                    _paq.push(['setDocumentTitle', document.title]);
-                    _paq.push(['trackPageView']);
+                    if (_paq?.push) {
+                        _paq.push(['setCustomUrl', to.path]);
+                        _paq.push(['setDocumentTitle', document.title]);
+                        _paq.push(['trackPageView']);
+                    }
                 });
                 app.use(router);
                 return router;
