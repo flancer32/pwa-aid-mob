@@ -30,7 +30,7 @@ async function initContainer(root) {
     resolver.addNamespaceRoot('TeqFw_Di_', pathDi, 'js');
     resolver.addNamespaceRoot('TeqFw_Core_', pathCore, 'mjs');
     // setup parser for the legacy code
-    const chunkOld = await res.get('TeqFw_Core_Back_App_Di_Parser$');
+    const chunkOld = await res.get('TeqFw_Core_Shared_App_Di_Parser_Chunk$');
     const parser = res.getParser();
     parser.addChunk(chunkOld);
     return res;
