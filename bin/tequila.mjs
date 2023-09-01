@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-/** Main script to create and to run TeqFW backend application. */
+/** Main script to create and run TeqFW backend application. */
 // IMPORT
 import {dirname, join} from 'node:path';
 import {readFileSync} from 'node:fs';
@@ -17,7 +17,7 @@ const root = join(currentDir, '..');
 /**
  * Create and setup DI container.
  * @param {string} root
- * @returns {TeqFw_Di_Api_Container}
+ * @returns {Promise<TeqFw_Di_Api_Container>}
  */
 async function initContainer(root) {
     /** @type {TeqFw_Di_Api_Container} */
