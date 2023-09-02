@@ -10,8 +10,8 @@ import Container from '@teqfw/di';
 /* Resolve paths to main folders */
 const url = new URL(import.meta.url);
 const script = url.pathname;
-const currentDir = dirname(script);
-const root = join(currentDir, '..');
+const bin = dirname(script);
+const root = join(bin, '..');
 
 // FUNCS
 /**
