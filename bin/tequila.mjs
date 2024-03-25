@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 'use strict';
-/** Main script to create and run TeqFW backend application. */
+/** Main script to create and run the backend teq-app. */
 // IMPORT
-import {dirname, join} from 'node:path';
-import {readFileSync} from 'node:fs';
 import Container from '@teqfw/di';
+import {dirname, join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {platform} from 'node:process';
 
 // VARS
 /* Resolve paths to main folders */
 const url = new URL(import.meta.url);
-const script = url.pathname;
+const script = fileURLToPath(url);
 const bin = dirname(script);
-const root = join(bin, '..');
+const path = join(bin, '..');
 
 // FUNCS
 /**
- * Create and setup DI container.
- * @param {string} root
+ * Create and manually set up the DI container.
+ * @param {string} root - The root folder of the app (where the `node_modules` folder is located).
  * @returns {Promise<TeqFw_Di_Api_Container>}
  */
 async function initContainer(root) {
@@ -25,42 +26,40 @@ async function initContainer(root) {
     res.setDebug(false);
     // add path mapping for @teqfw/core to the DI resolver
     const resolver = res.getResolver();
+    resolver.setWindowsEnv(platform === 'win32');
     const pathDi = join(root, 'node_modules', '@teqfw', 'di', 'src');
     const pathCore = join(root, 'node_modules', '@teqfw', 'core', 'src');
     resolver.addNamespaceRoot('TeqFw_Di_', pathDi, 'js');
     resolver.addNamespaceRoot('TeqFw_Core_', pathCore, 'mjs');
     // setup parser for the legacy code
+    /** @type {TeqFw_Core_Shared_App_Di_Parser_Legacy} */
     const parserLegacy = await res.get('TeqFw_Core_Shared_App_Di_Parser_Legacy$');
     res.getParser().addChunk(parserLegacy);
-    // add post-processor with Factory wrapper
+    // add pre-processors: replace
+    const pre = res.getPreProcessor();
+    const preReplace = await res.get(`TeqFw_Core_Shared_App_Di_PreProcessor_Replace$`);
+    pre.addChunk(preReplace);
+    // add post-processors: Factory, Proxy, Logger
+    const post = res.getPostProcessor();
+    /** @type {TeqFw_Core_Shared_App_Di_PostProcessor_Factory} */
     const postFactory = await res.get('TeqFw_Core_Shared_App_Di_PostProcessor_Factory$');
-    res.getPreProcessor().addChunk(postFactory);
+    post.addChunk(postFactory);
+    /** @type {TeqFw_Core_Shared_App_Di_PostProcessor_Proxy} */
+    const postProxy = await res.get('TeqFw_Core_Shared_App_Di_PostProcessor_Proxy$');
+    post.addChunk(postProxy);
+    /** @type {TeqFw_Core_Shared_App_Di_PostProcessor_Logger} */
+    const postLogger = await res.get('TeqFw_Core_Shared_App_Di_PostProcessor_Logger$');
+    post.addChunk(postLogger);
     return res;
-}
-
-/**
- * Read project version from './package.json' or use default one.
- * @param root
- * @returns {*|string}
- */
-function readVersion(root) {
-    const filename = join(root, 'package.json');
-    const buffer = readFileSync(filename);
-    const content = buffer.toString();
-    const json = JSON.parse(content);
-    return json?.version ?? '0.1.0';
 }
 
 // MAIN
 try {
-    const container = await initContainer(root);
-    const version = readVersion(root);
-    /** Construct backend app instance using Container then init app & run it */
+    // Initialize the DI container, then create and run the backend teq-app.
+    const container = await initContainer(path);
     /** @type {TeqFw_Core_Back_App} */
     const app = await container.get('TeqFw_Core_Back_App$');
-    await app.init({path: root, version});
-    await app.run();
+    await app.run({path});
 } catch (e) {
-    console.error('Cannot create or run TeqFW application.');
-    console.dir(e);
+    console.error(e);
 }

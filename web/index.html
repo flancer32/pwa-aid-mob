@@ -25,22 +25,67 @@
 
     <script>
         self.addEventListener('load', async () => {
-            // see `node_modules/@teqfw/web/web/js/install.mjs`
-            const {Install} = await import('./web/@teqfw/web/js/install.mjs');
-            // create & init bootstrap object
-            /** @type {Install} */
-            const installer = new Install();
-            installer.setCssMount('BODY > DIV');
-            installer.setNsApp('Aid_Mob_Front_App');
-            // set printout to UI DIV & to console
-            // local printout DIV
-            const elLaunchpad = document.querySelector('.launchpad');
-            installer.setFnPrintout((msg) => {
-                elLaunchpad.innerHTML = msg;
-                console.log(`[shell]: ${msg}`);
-            });
-            // run the application's bootstrap
-            await installer.run();
+            // VARS
+            // const urlSw = 'sw.js';
+            const urlSw = null;
+            const nsApp = 'Aid_Mob_Front_App';
+            const cssApp = '#app';
+            const elLog = document.getElementById('boot-log');
+            // const elProgress = document.getElementById('printProgress');
+
+            // FUNCS
+            function fnFinalize() {
+                // remove the bootstrap element
+                const el = document.getElementById('boot');
+                if (typeof el?.remove === 'function') el.remove();
+            }
+
+            function fnLog(msg) {
+                // logs errors to UI, console and logs aggregator
+                elLog.innerHTML = msg;
+                console.log(`[app-shell]: ${msg}`);
+                // navigator.sendBeacon('https://console.wiredgeese.com/log/lollypals', msg);
+            }
+
+            function fnProgress(percent) {
+                // elProgress.innerHTML = percent;
+                console.log(`[app-shell]: ${percent}%`);
+            }
+
+            async function cleanCache() {
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    cacheNames.forEach(cacheName => caches.delete(cacheName));
+                    fnLog(`The cache storage is cleaned.`);
+                } else fnLog(`The cache storage is not available here.`);
+                window.location.reload();
+            }
+
+            function cleanUp() {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for (const registration of registrations) registration.unregister();
+                });
+                if ('caches' in window) {
+                    caches.keys().then(cacheNames => {
+                        cacheNames.forEach(cacheName => caches.delete(cacheName));
+                    });
+                }
+                localStorage.clear();
+                window.location.reload();
+            }
+
+            // MAIN
+            try {
+                const elBtnCache = document.getElementById('boot-cache');
+                elBtnCache?.addEventListener('click', cleanCache);
+                const elBtnReInst = document.getElementById('boot-reinstall');
+                elBtnReInst?.addEventListener('click', cleanUp);
+                const {bootstrap} = await import('./web/@teqfw/web/js/bootstrap.mjs');
+                bootstrap(fnLog, fnProgress, urlSw, nsApp, cssApp, fnFinalize).catch(console.error);
+            } catch (e) {
+                console.error(e);
+            }
+
         });
     </script>
 
@@ -67,12 +112,10 @@
 
 </head>
 <body>
-<div>
-    <app-root>
-        <div class="launchpad">This is AI Demo</div>
-    </app-root>
+<div id="boot">
+    <div id="boot-log"></div>
 </div>
-
+<div id="app">This is AI Demo</div>
 <!-- These scripts are not ready for loading with TeqFW DI. Use old style loading.  -->
 <!--<script type="application/javascript" src="https://apis.google.com/js/api.js"></script>-->
 <!--<script type="application/javascript" src="https://accounts.google.com/gsi/client" async></script>-->

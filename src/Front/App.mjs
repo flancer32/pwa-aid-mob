@@ -15,19 +15,17 @@ const NS = 'Aid_Mob_Front_App';
 
 // MODULE'S CLASSES
 /**
- * @implements TeqFw_Web_Front_Api_IApp
+ * @implements TeqFw_Web_Front_Api_App
  */
 export default class Aid_Mob_Front_App {
     /**
      * @param {TeqFw_Di_Container} container
-     * @param {function} createApp
-     * @param {function} createRouter
-     * @param {function} createWebHashHistory
+     * @param {TeqFw_Vue_Front_Ext_Vue} extVue
+     * @param {TeqFw_Ui_Quasar_Front_Ext} extQuasar
      * @param {Aid_Mob_Front_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
      * @param {TeqFw_Core_Shared_Logger_Base} loggerBase
      * @param {Aid_Mob_Front_Mod_Logger_Transport} modLogTrn -  injected as interface
-     * @param {TeqFw_Ui_Quasar_Front_Lib} quasar
      * @param {TeqFw_Web_Front_Mod_Config} modCfg
      * @param {Aid_Mob_Front_Ui_Layout_Center.vueCompTmpl} layoutCenter
      * @param {Aid_Mob_Front_Ui_Layout_Main.vueCompTmpl} layoutMain
@@ -36,14 +34,12 @@ export default class Aid_Mob_Front_App {
     constructor(
         {
             container,
-            'TeqFw_Vue_Front_Ext_Vue.createApp': createApp,
-            'TeqFw_Vue_Front_Ext_Router.createRouter': createRouter,
-            'TeqFw_Vue_Front_Ext_Router.createWebHashHistory': createWebHashHistory,
+            TeqFw_Vue_Front_Ext_Vue: extVue,
+            TeqFw_Ui_Quasar_Front_Ext: extQuasar,
             Aid_Mob_Front_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Core_Shared_Logger_Base$: loggerBase,
             TeqFw_Core_Shared_Api_Logger_Transport$: modLogTrn,
-            TeqFw_Ui_Quasar_Front_Lib: quasar,
             TeqFw_Web_Front_Mod_Config$: modCfg,
             Aid_Mob_Front_Ui_Layout_Center$: layoutCenter,
             Aid_Mob_Front_Ui_Layout_Main$: layoutMain,
@@ -53,6 +49,14 @@ export default class Aid_Mob_Front_App {
         let _isInitialized = false; // application is initialized and can be mounted
         let _print; // function to printout logs to UI or console
         let _root; // root vue component for the application
+        const {
+            /** @type {{createApp:function}} */
+            Vue,
+            /** @type {{createRouter:function, createWebHashHistory:function}} */
+            VueRouter,
+        } = extVue;
+
+        const {default: quasar} = extQuasar;
 
         // MAIN
         logger.setNamespace(this.constructor.namespace);
@@ -83,8 +87,8 @@ export default class Aid_Mob_Front_App {
 
             function initRouter(app, DEF, container) {
                 /** @type {{addRoute}} */
-                const router = createRouter({
-                    history: createWebHashHistory(), routes: [],
+                const router = VueRouter.createRouter({
+                    history: VueRouter.createWebHashHistory(), routes: [],
                 });
                 // setup application routes (load es6-module on demand with DI-container)
                 router.addRoute({
@@ -148,7 +152,7 @@ export default class Aid_Mob_Front_App {
             _print = createPrintout(fnPrintout);
             _print(`TeqFW App is initializing...`);
             // create root vue component
-            _root = createApp({
+            _root = Vue.createApp({
                 teq: {package: DEF.SHARED.NAME},
                 name: NS,
                 data() {
@@ -183,7 +187,7 @@ export default class Aid_Mob_Front_App {
                 res = false;
             }
             return res;
-        }
+        };
 
         /**
          * Mount root vue component of the application to DOM element.
@@ -194,7 +198,7 @@ export default class Aid_Mob_Front_App {
          */
         this.mount = function (elRoot) {
             if (_isInitialized) _root.mount(elRoot);
-        }
+        };
 
         this.reinstall = function (elRoot) {
             _print(`
@@ -202,6 +206,6 @@ It is required to reinstall app. Please clean up all data in DevTools
 (F12 / Application / Storage / Clear site data).
 Then reload this page.
 `);
-        }
+        };
     }
 }

@@ -147,7 +147,7 @@ export default function (
                 this.fldFile = file.name;
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = (evt) => {
+                reader.onloadend = (evt) => {
                     this.bufferB64 = evt.target.result;
                 };
             },
