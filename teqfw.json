@@ -1,6 +1,8 @@
 {
   "@teqfw/core": {
-    "commands": [],
+    "commands": [
+      "Aid_Mob_Back_Cli_Srt"
+    ],
     "plugin": {}
   },
   "@teqfw/di": {
