@@ -48,7 +48,7 @@ export default function Factory(
         TeqFw_Core_Back_Config$: config,
         TeqFw_Core_Shared_Api_Logger$$: logger,
         'TeqFw_Core_Back_Api_Dto_Command.Factory$': fCommand,
-        'TeqFw_Core_Back_Api_Dto_Command_Option#Factory$': fOpt,
+        'TeqFw_Core_Back_Api_Dto_Command_Option.Factory$': fOpt,
     }
 ) {
     // FUNCS
